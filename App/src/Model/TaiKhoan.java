@@ -1,15 +1,10 @@
 package Model;
 
-enum TRANGTHAI{
-	
-}
-
 public class TaiKhoan {
-	private String SoTK,TenTK,MatKhau;
+	private String SoTK,TenTK,MatKhau,TrangThaiHoatDong;
 	private double SoDu;
-	private TRANGTHAI TrangThaiHoatDong;
 	private int MaPIN;
-	public TaiKhoan(String soTK, String tenTK, String matKhau, double soDu, TRANGTHAI trangThaiHoatDong, int maPIN) {
+	public TaiKhoan(String soTK, String tenTK, String matKhau, double soDu, String trangThaiHoatDong, int maPIN) {
 		super();
 		SoTK = soTK;
 		TenTK = tenTK;
