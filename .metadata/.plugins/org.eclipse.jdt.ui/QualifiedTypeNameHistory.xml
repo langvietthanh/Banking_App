@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="Model.QuocTich"/>
+    <fullyQualifiedTypeName name="Model.THELOAI"/>
+    <fullyQualifiedTypeName name="tes.test"/>
+    <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="JDBC.JDBCUtil"/>
+</qualifiedTypeNameHistroy>
