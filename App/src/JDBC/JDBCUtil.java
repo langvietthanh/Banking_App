@@ -19,14 +19,15 @@ public class JDBCUtil {
 	        }
 	        return conn;
 	    }
-    public static void disconnect(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-                System.out.println("Đã đóng kết nối.");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
+	    public static void disconnect(Connection conn) {
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	                System.out.println("Đã đóng kết nối.");
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
 }
