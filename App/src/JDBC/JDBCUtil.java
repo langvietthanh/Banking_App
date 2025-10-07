@@ -14,21 +14,19 @@ public class JDBCUtil {
 	        try {
 	            // Từ JDBC 4.0 trở đi không cần Class.forName nữa, chỉ cần có driver trong classpath
 	            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-	            System.out.println("Kết nối MySQL thành công!");
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	        return conn;
 	    }
-
-	    public static void disconnect(Connection conn) {
-	        if (conn != null) {
-	            try {
-	                conn.close();
-	                System.out.println("Đã đóng kết nối.");
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
+    public static void disconnect(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+                System.out.println("Đã đóng kết nối.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

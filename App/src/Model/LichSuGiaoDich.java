@@ -15,5 +15,4 @@ public class LichSuGiaoDich {
 		SoDu = soDu;
 		ThoiGianGD = thoiGianGD;
 	}
-	
 }
