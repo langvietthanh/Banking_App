@@ -13,20 +13,17 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
     @Override
     public void create(NguoiDung nd) {
         Connection con = JDBCUtil.getConnection();
-        String sql = "insert into NguoiDung (UserID, TenDangNhap, Password, HoTen, NgaySinh, CCCD, SDT, Email, DiaChi,HanCCCD,NgayDangKi)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into NguoiDung (Password, HoTen, NgaySinh, CCCD, SDT, Email, DiaChi,HanCCCD)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setLong(1,nd.getUserID());
-            ps.setString(2,nd.getTenDangNhap());
-            ps.setString(3,nd.getPassword());
-            ps.setString(4,nd.getHoTen());
-            ps.setObject(5, nd.getNgaySinh());
-            ps.setString(6,nd.getCccd());
-            ps.setString(7,nd.getSoDienThoai());
-            ps.setString(8,nd.getEmail());
-            ps.setString(9,nd.getDiaChi());
-            ps.setObject(10,nd.getHanCCCD());
-            ps.setObject(11,nd.getNgayDangKi());
+            ps.setString(1,nd.getCccd());
+            ps.setString(2,nd.getPassword());
+            ps.setString(3,nd.getHoTen());
+            ps.setObject(4,nd.getNgaySinh());
+            ps.setString(5,nd.getSoDienThoai());
+            ps.setString(6,nd.getEmail());
+            ps.setString(7,nd.getDiaChi());
+            ps.setObject(8,nd.getHanCCCD());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -92,5 +89,51 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
         }
         JDBCUtil.disconnect(con);
         return value;
+    }
+
+    public NguoiDung Dang_Nhap(String sdt, String password) {
+        Connection con = JDBCUtil.getConnection();
+        String sql = "select * from nguoidung where SDT = ? and Password = ?;";
+        NguoiDung nd = null;
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,sdt);
+            ps.setString(2,password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                String cccd = rs.getString(1);
+                String Password = rs.getString(2);
+                String hoTen= rs.getString(3);
+                LocalDate ngaySinh=rs.getObject(4,LocalDate.class);
+                String soDienThoai= rs.getString(5);
+                String email= rs.getString(6);
+                String diaChi= rs.getString(7);
+                LocalDate hanCCCD= rs.getObject(8,LocalDate.class);
+                LocalDateTime ngayDangKi = rs.getObject(9,LocalDateTime.class);
+                nd = new  NguoiDung();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        JDBCUtil.disconnect(con);
+        return nd;
+    }
+
+    public boolean Ton_Tai_Nguoi_Dung(String sdt) {
+        Connection con = JDBCUtil.getConnection();
+        String sql = "select * from nguoidung where SDT = ?;";
+        boolean check  = false;
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,sdt);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                check = true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        JDBCUtil.disconnect(con);
+        return check;
     }
 }

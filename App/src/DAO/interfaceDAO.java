@@ -1,7 +1,6 @@
 package DAO;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public interface interfaceDAO<T> {
     public void create(T t);

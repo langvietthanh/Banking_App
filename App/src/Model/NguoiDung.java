@@ -2,51 +2,47 @@ package Model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-//CCCD, HoTen, NgaySinh,QuocTich, SDT, Email,HanCCCD, DiaChi
+
 public class NguoiDung {
-    private Long userID;              // Mã người dùng (PK)
-    private String tenDangNhap;         // Tên đăng nhập
-    private String password;         // Mật khẩu
-    private String hoTen;            // Họ tên đầy đủ
-    private LocalDate ngaySinh;      // Ngày sinh
-    private String cccd;             // Số CCCD
-    private String soDienThoai;      // Số điện thoại
-    private String email;            // Email
-    private String diaChi;           // Địa chỉ
+    private String password;
+    private String hoTen;
+    private LocalDate ngaySinh;
+    private String cccd;
+    private String soDienThoai;
+    private String email;
+    private String diaChi;
     private LocalDate hanCCCD;
     private LocalDateTime ngayDangKi;   
     // Ngày tạo tài khoản
     public NguoiDung() {}
 
-    public NguoiDung(String password, String hoTen,
-                     LocalDate ngaySinh, String cccd, String soDienThoai,
-                     String email, String diaChi, LocalDate hanCCCD, LocalDateTime ngayDangKi) {
-        this.tenDangNhap = soDienThoai;
+    public NguoiDung(String cccd, String password, String hoTen,
+                     LocalDate ngaySinh, String soDienThoai,
+                     String email, String diaChi, LocalDate hanCCCD) {
+        this.cccd = cccd;
         this.password = password;
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
+        this.soDienThoai = soDienThoai;
+        this.email = email;
+        this.diaChi = diaChi;
+        this.hanCCCD = hanCCCD;
+        this.ngayDangKi = LocalDateTime.now();
+    }
+
+
+    public NguoiDung(String cccd, String password, String hoTen,
+                     LocalDate ngaySinh, String soDienThoai,
+                     String email, String diaChi, LocalDate hanCCCD, LocalDateTime ngayDangKi) {
         this.cccd = cccd;
+        this.password = password;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
         this.soDienThoai = soDienThoai;
         this.email = email;
         this.diaChi = diaChi;
         this.hanCCCD = hanCCCD;
         this.ngayDangKi = ngayDangKi;
-    }
-    // ----- Constructors -----
-    public Long getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Long userID) {
-        this.userID = userID;
-    }
-
-    public String getTenDangNhap() {
-        return tenDangNhap;
-    }
-
-    public void setTenDangNhap(String tenDangNhap) {
-        this.tenDangNhap = tenDangNhap;
     }
 
     public String getPassword() {

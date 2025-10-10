@@ -24,7 +24,6 @@ public class JDBCUtil {
 	        if (conn != null) {
 	            try {
 	                conn.close();
-	                System.out.println("Đã đóng kết nối.");
 	            } catch (SQLException e) {
 	                e.printStackTrace();
 	            }
