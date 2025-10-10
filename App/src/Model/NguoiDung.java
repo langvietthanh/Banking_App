@@ -18,11 +18,10 @@ public class NguoiDung {
     // Ngày tạo tài khoản
     public NguoiDung() {}
 
-    public NguoiDung(Long userID, String tendangnhap, String password, String hoTen,
+    public NguoiDung(String password, String hoTen,
                      LocalDate ngaySinh, String cccd, String soDienThoai,
                      String email, String diaChi, LocalDate hanCCCD, LocalDateTime ngayDangKi) {
-        this.userID = userID;
-        this.tenDangNhap = tendangnhap;
+        this.tenDangNhap = soDienThoai;
         this.password = password;
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;

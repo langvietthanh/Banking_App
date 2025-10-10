@@ -2,31 +2,25 @@ package DAO;
 
 import JDBC.JDBCUtil;
 import Model.NguoiDung;
+import Model.TaiKhoan;
 
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
-
+public class TaiKhoanDAO implements interfaceDAO<TaiKhoan> {
     @Override
-    public void create(NguoiDung nd) {
+    public void create(TaiKhoan account){
         Connection con = JDBCUtil.getConnection();
-        String sql = "insert into NguoiDung (UserID, TenDangNhap, Password, HoTen, NgaySinh, CCCD, SDT, Email, DiaChi,HanCCCD,NgayDangKi)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        try {
+        String sql = "INSERT INTO TaiKhoan (SoTK, maPIN, SoDu, NgayTao)"
+                + " VALUES (?,?,?,?);";
+        try{
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setLong(1,nd.getUserID());
-            ps.setString(2,nd.getTenDangNhap());
-            ps.setString(3,nd.getPassword());
-            ps.setString(4,nd.getHoTen());
-            ps.setObject(5, nd.getNgaySinh());
-            ps.setString(6,nd.getCccd());
-            ps.setString(7,nd.getSoDienThoai());
-            ps.setString(8,nd.getEmail());
-            ps.setString(9,nd.getDiaChi());
-            ps.setObject(10,nd.getHanCCCD());
-            ps.setObject(11,nd.getNgayDangKi());
+            ps.setString(1,account.getSoTaiKhoan());
+            ps.setString(2,account.getMaPIN());
+            ps.setLong(3,account.getSoDu());
+            ps.setObject(4,account.getNgayTao());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -34,18 +28,17 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
         }
         JDBCUtil.disconnect(con);
     }
-
     @Override
-    public <V> void updateAttribute(String attribute,V value,String CCCD){
+    public <V> void updateAttribute(String attribute,V value,String SoTK){
         Connection con = JDBCUtil.getConnection();
-        String sql = "UPDATE NguoiDung "
+        String sql = "UPDATE TaiKhoan "
                 +"SET "
                 +attribute+" = ? "
-                +"WHERE CCCD = ?;";
+                +"WHERE SoTK = ?;";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1,value);
-            ps.setString(2,CCCD);
+            ps.setString(2,SoTK);
 
             ps.executeUpdate();
             ps.close();
@@ -54,17 +47,16 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
         }
         JDBCUtil.disconnect(con);
     }
-
     @Override
-    public void delete(NguoiDung nd) {
+    public void delete(TaiKhoan account) {
         Connection con = JDBCUtil.getConnection();
 
-        String sql = "delete from NguoiDung "
-                + "where CCCD = ? ;";
+        String sql = "delete from TaiKhoan "
+                + "where SoTK = ? ;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setString(1, nd.getCccd());
+            ps.setString(1, account.getSoTaiKhoan());
 
             ps.executeUpdate();
             ps.close();
@@ -78,7 +70,7 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
     public Object findByAttribute(String attribute,String key){
         Connection con = JDBCUtil.getConnection();
         Object value = null;
-        String sql = "SELECT "+attribute+" FROM NguoiDung WHERE CCCD = ?;";
+        String sql = "SELECT "+attribute+" FROM TaiKhoan WHERE SoTK = ?;";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,key);
