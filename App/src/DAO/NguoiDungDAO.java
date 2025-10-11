@@ -119,21 +119,13 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
         return nd;
     }
 
-    public boolean Ton_Tai_Nguoi_Dung(String sdt) {
+    public boolean Ton_Tai_Nguoi_Dung(String sdt) throws SQLException {
         Connection con = JDBCUtil.getConnection();
         String sql = "select * from nguoidung where SDT = ?;";
-        boolean check  = false;
-        try{
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,sdt);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                check = true;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1,sdt);
+        ResultSet rs = ps.executeQuery();
         JDBCUtil.disconnect(con);
-        return check;
+        return rs.next();
     }
 }

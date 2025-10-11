@@ -117,4 +117,10 @@ public class NguoiDung {
         this.ngayDangKi = ngayDangKi;
     }
 
+    public static boolean Kiem_Tra_SDT(String sdt){
+        sdt = sdt.replaceAll("\\s+", ""); // bỏ khoảng trắng
+        // Hỗ trợ dạng +84xxx hoặc 0xxx
+        return sdt.matches("^(\\+84|0)(3|5|7|8|9)\\d{8}$");
+    }
+
 }
