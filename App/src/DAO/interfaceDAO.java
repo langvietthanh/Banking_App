@@ -7,4 +7,5 @@ public interface interfaceDAO<T> {
     public <V> void updateAttribute(String attribute,V value, String key);
     public void delete(T t);
     public Object findByAttribute(String attribute, String key);
+    public boolean existAttribute(String attribute,String value);
 }

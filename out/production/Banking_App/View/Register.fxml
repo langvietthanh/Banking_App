@@ -7,47 +7,87 @@
 <!--&lt;!&ndash;<?import javafx.scene.control.*?>&ndash;&gt;-->
 <!--&lt;!&ndash;<?import javafx.scene.layout.*?>&ndash;&gt;-->
 
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Control.Controller_Register">
+    <children>
+        <GridPane layoutX="79.0" layoutY="50.0" prefHeight="350.0" prefWidth="450.0" hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints prefWidth="120.0" />
+                <ColumnConstraints prefWidth="250.0" />
+            </columnConstraints>
+            <children>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_Register">
-   <children>
-      <GridPane layoutX="79.0" layoutY="93.0" prefHeight="293.0" prefWidth="364.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="92.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="272.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="Họ và tên: " />
-            <Label text="CCCD:" GridPane.rowIndex="1" />
-            <Label text="SDT:" GridPane.rowIndex="2" />
-            <Label text="Email:" GridPane.rowIndex="4" />
-            <Label text="Địa chỉ:" GridPane.rowIndex="3" />
-            <Label text="Ngày sinh:" GridPane.rowIndex="5" />
-            <Label text="Hạn CCCD" GridPane.rowIndex="6" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField prefHeight="25.0" prefWidth="183.0" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-         </children>
-      </GridPane>
-   </children>
+                <!-- Họ và tên -->
+                <Label text="Họ và tên:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                    <TextField fx:id="textField_hoten" promptText="Nhập họ và tên" />
+                    <Label fx:id="errorHoTen" textFill="red" visible="false" />
+                </VBox>
+
+                <!-- CCCD -->
+                <Label text="CCCD:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    <TextField fx:id="textField_cccd" promptText="Nhập CCCD" />
+                    <Label fx:id="errorCCCD" textFill="red" visible="false" />
+                </VBox>
+
+                <!-- SDT -->
+                <Label text="SĐT:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                    <TextField fx:id="textField_sdt" promptText="Nhập số điện thoại" />
+                    <Label fx:id="errorSDT" textFill="red" visible="false" />
+                </VBox>
+               <!-- Mật khẩu tài khoản -->
+                <Label text="Mật khẩu:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="3" GridPane.columnIndex="1">
+                    <TextField fx:id="textField_mk" promptText="Nhập mật khẩu tài khoản của bạn" />
+                    <Label fx:id="errorMK" textFill="red" visible="false" />
+                </VBox>
+                <Label text="Nhập lại mật khẩu:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                    <TextField fx:id="textField_mk2" promptText="Nhập lại mật khẩu tài khoản của bạn" />
+                    <Label fx:id="errorMK2" textFill="red" visible="false" />
+                </VBox>
+
+                <!-- Địa chỉ -->
+                <Label text="Địa chỉ:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                    <TextField fx:id="textField_diaChi" promptText="Nhập địa chỉ" />
+                    <Label fx:id="errorDiaChi" textFill="red" visible="false" />
+                </VBox>
+
+                <!-- Email -->
+                <Label text="Email:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="6" GridPane.columnIndex="1">
+                    <TextField fx:id="textField_email" promptText="Nhập email" />
+                    <Label fx:id="errorEmail" textFill="red" visible="false" />
+                </VBox>
+
+                <!-- Ngày sinh -->
+                <Label text="Ngày sinh:" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="7" GridPane.columnIndex="1">
+                    <DatePicker fx:id="datePicker_ngaySinh" />
+                    <Label fx:id="errorNgaySinh" textFill="red" visible="false" />
+                </VBox>
+
+                <!-- Hạn CCCD -->
+                <Label text="Hạn CCCD:" GridPane.rowIndex="8" GridPane.columnIndex="0" />
+                <VBox spacing="3" GridPane.rowIndex="8" GridPane.columnIndex="1">
+                    <DatePicker fx:id="datePicker_hanCCCD" />
+                    <Label fx:id="errorHanCCCD" textFill="red" visible="false" />
+                </VBox>
+
+                <!-- Nút đăng ký -->
+                <Button text="Đăng ký"
+                        onAction="#handleRegister"
+                        GridPane.rowIndex="9"
+                        GridPane.columnIndex="1"
+                        style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            </children>
+        </GridPane>
+    </children>
 </AnchorPane>
