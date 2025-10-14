@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
+    public NguoiDungDAO() {}
 
     @Override
     public void create(NguoiDung nd) {
@@ -71,24 +72,29 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
         }
         JDBCUtil.disconnect(con);
     }
-    @Override
-    public Object findByAttribute(String attribute,String key){
+
+
+    public NguoiDung findBySDT(String key) throws SQLException{
         Connection con = JDBCUtil.getConnection();
-        Object value = null;
-        String sql = "SELECT "+attribute+" FROM NguoiDung WHERE CCCD = ?;";
-        try{
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,key);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                value = rs.getObject(attribute);
-            }
-            ps.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        NguoiDung nd = null;
+        String sql = "SELECT * FROM NguoiDung WHERE sdt = ?;";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1,key);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()){
+            String cccd = rs.getString(1)
+            ,password = rs.getString(2)
+            ,hoTen = rs.getString(3);
+            LocalDate ngaySinh = rs.getObject(4,LocalDate.class);
+            String SDT = rs.getString(5)
+                    ,email =  rs.getString(6)
+                    ,diaChi =  rs.getString(7);
+            LocalDate hanCCCD = rs.getObject(8,LocalDate.class);
+            nd  = new NguoiDung(cccd,password,hoTen,ngaySinh,SDT,email,diaChi,hanCCCD);
         }
+        ps.close();
         JDBCUtil.disconnect(con);
-        return value;
+        return nd;
     }
     public boolean existAttribute(String attribute,String value){
         Connection con = JDBCUtil.getConnection();
@@ -108,6 +114,34 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
         JDBCUtil.disconnect(con);
         return exist;
     }
+    public NguoiDung findBySDTandPassword(String sdt, String password) {
+        Connection con = JDBCUtil.getConnection();
+        String sql = "select * from nguoidung where SDT = ? and Password = ?;";
+        NguoiDung nd = null;
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,sdt);
+            ps.setString(2,password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                String cccd = rs.getString(1);
+                String Password = rs.getString(2);
+                String hoTen= rs.getString(3);
+                LocalDate ngaySinh=rs.getObject(4,LocalDate.class);
+                String soDienThoai= rs.getString(5);
+                String email= rs.getString(6);
+                String diaChi= rs.getString(7);
+                LocalDate hanCCCD= rs.getObject(8,LocalDate.class);
+                LocalDateTime ngayDangKi = rs.getObject(9,LocalDateTime.class);
+                nd = new  NguoiDung();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        JDBCUtil.disconnect(con);
+        return nd;
+    }
+
     public NguoiDung Dang_Nhap(String sdt, String password) {
         Connection con = JDBCUtil.getConnection();
         String sql = "select * from nguoidung where SDT = ? and Password = ?;";
@@ -136,7 +170,33 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
         return nd;
     }
 
-    public boolean Ton_Tai_Nguoi_Dung(String sdt) throws SQLException {
+    public boolean update(NguoiDung nd) throws SQLException {
+        Connection con = JDBCUtil.getConnection();
+        String sql = " UPDATE nguoidung " +
+                "SET password = ?" +
+                ",hoten = ?" +
+                ", ngaysinh = ?" +
+                ", SDT = ?" +
+                ", email = ?" +
+                ", diachi = ?" +
+                ", hancccd = ?" +
+                " WHERE cccd = ?";
+        PreparedStatement p = con.prepareStatement(sql);
+        p.setString(1, nd.getPassword());
+        p.setString(2, nd.getHoTen());
+        p.setDate(3, Date.valueOf(nd.getNgaySinh()));
+        p.setString(4, nd.getSoDienThoai());
+        p.setString(5, nd.getEmail());
+        p.setString(6, nd.getDiaChi());
+        p.setDate(7, Date.valueOf(nd.getHanCCCD()));
+        p.setString(8, nd.getCccd());
+
+        int rows = p.executeUpdate();
+        JDBCUtil.disconnect(con);
+        return rows > 0;
+    }
+
+    public boolean Ton_Tai_SDT(String sdt) throws SQLException {
         Connection con = JDBCUtil.getConnection();
         String sql = "select * from nguoidung where SDT = ?;";
         PreparedStatement ps = con.prepareStatement(sql);

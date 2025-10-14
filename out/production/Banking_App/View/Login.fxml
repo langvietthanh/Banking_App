@@ -13,11 +13,11 @@
 
 <AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_Login">
 
-    <Button layoutX="150.0" layoutY="241.0" onAction="#handleLogin" text="Đăng nhập" />
+    <Button layoutX="150.0" layoutY="241.0" onAction="#Dang_Nhap" text="Đăng nhập" />
 
-    <Button layoutX="503.0" layoutY="30.0" onAction="#handleRegister" text="Đăng ký" />
+    <Button layoutX="503.0" layoutY="30.0" onAction="#Dang_Ki" text="Đăng ký" />
 
-    <Button layoutX="343.0" layoutY="241.0" onAction="#handleForgotPassword" text="Quên mật khẩu" />
+    <Button fx:id="Button_QuenMatKhau" layoutX="343.0" layoutY="241.0" onAction="#Quen_Mat_Khau" text="Quên mật khẩu" />
    <GridPane layoutX="128.0" layoutY="117.0" prefHeight="67.0" prefWidth="344.0">
      <columnConstraints>
        <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="108.0" />
@@ -28,12 +28,12 @@
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <TextField fx:id="usernameField" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="164.0" promptText="Số điện thoại" GridPane.columnIndex="1">
+         <TextField fx:id="TextField_SoDienThoai" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="164.0" promptText="Số điện thoại" GridPane.columnIndex="1">
             <font>
                <Font size="15.0" />
             </font>
          </TextField>
-          <PasswordField fx:id="passwordField" alignment="TOP_LEFT" focusTraversable="false" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1">
+          <PasswordField fx:id="TextField_Password" alignment="TOP_LEFT" focusTraversable="false" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <font>
                <Font size="15.0" />
             </font>
@@ -53,6 +53,7 @@
          </Label>
       </children>
    </GridPane>
+   <Label fx:id="Label_ThongBaoLoiDangNhap" layoutX="185.0" layoutY="199.0" prefHeight="17.0" prefWidth="230.0" text="Label" />
    <opaqueInsets>
       <Insets />
    </opaqueInsets>

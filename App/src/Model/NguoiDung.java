@@ -2,6 +2,7 @@ package Model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class NguoiDung {
     private String password;
@@ -12,7 +13,7 @@ public class NguoiDung {
     private String email;
     private String diaChi;
     private LocalDate hanCCCD;
-    private LocalDateTime ngayDangKi;   
+    private LocalDateTime ngayDangKi;
     // Ngày tạo tài khoản
     public NguoiDung() {}
 

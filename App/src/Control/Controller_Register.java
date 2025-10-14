@@ -70,6 +70,7 @@ public class Controller_Register {
         checkNgaySinh(ngaySinh);
         checkHanCCCD(hanCCCD);
     }
+
     private void checkExist(String cccd,String sdt,String email){
         checkExistCCCD(cccd);
         checkExistSDT(sdt);

@@ -66,25 +66,7 @@ public class TaiKhoanDAO implements interfaceDAO<TaiKhoan> {
         }
         JDBCUtil.disconnect(con);
     }
-    @Override
-    public Object findByAttribute(String attribute,String key){
-        Connection con = JDBCUtil.getConnection();
-        Object value = null;
-        String sql = "SELECT "+attribute+" FROM TaiKhoan WHERE SoTK = ?;";
-        try{
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,key);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                value = rs.getObject(attribute);
-            }
-            ps.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        JDBCUtil.disconnect(con);
-        return value;
-    }
+
     public boolean existAttribute(String attribute,String value){
         Connection con = JDBCUtil.getConnection();
         boolean exist = true;

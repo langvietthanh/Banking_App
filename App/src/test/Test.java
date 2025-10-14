@@ -13,6 +13,7 @@ import java.util.List;
 //CCCD, HoTen, NgaySinh,QuocTich, SDT, Email,HanCCCD, DiaChi
 public class Test {
     public static void main(String[] args) throws ParseException {
-
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now.plusDays(1));
     }
 }

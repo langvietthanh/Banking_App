@@ -12,7 +12,6 @@ public class GiaoDich {
     private String noiDung;              // Nội dung giao dịch
     private LocalDateTime thoiGianGD;    // Thời gian thực hiện
 
-    // ----- Constructors -----
     public GiaoDich() {}
 
     public GiaoDich(int transactionID, String maGD, String taiKhoanNguon, String taiKhoanDich,

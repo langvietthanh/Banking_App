@@ -12,7 +12,6 @@ public class JDBCUtil {
 	 public static Connection getConnection() {
 	        Connection conn = null;
 	        try {
-	            // Từ JDBC 4.0 trở đi không cần Class.forName nữa, chỉ cần có driver trong classpath
 	            conn = DriverManager.getConnection(URL, USER, PASSWORD);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
