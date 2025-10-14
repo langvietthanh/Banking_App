@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Control.Controller_Register_Account"
+            prefHeight="450.0" prefWidth="500.0"
+            style="-fx-background-color: linear-gradient(to bottom, #f0f4f8, #d9e2ec);">
+
+    <children>
+        <VBox layoutX="80" layoutY="40" spacing="20">
+            <Label text="ĐĂNG KÝ TÀI KHOẢN NGÂN HÀNG"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #003366;"
+                   alignment="CENTER"/>
+
+            <!-- Số tài khoản -->
+            <VBox spacing="3">
+                <Label text="Số tài khoản:" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="SoTaiKhoan" prefWidth="300"
+                           promptText="Nhập số tài khoản (10–14 số)"/>
+                <Label fx:id="errorSoTaiKhoan" textFill="red" visible="false"/>
+            </VBox>
+
+            <!-- Mã PIN -->
+            <VBox spacing="3">
+                <Label text="Mã PIN:" style="-fx-font-size: 14px;"/>
+                <PasswordField fx:id="PIN" prefWidth="300"
+                               promptText="Nhập mã PIN (4–6 số)"/>
+                <Label fx:id="errorPIN" textFill="red" visible="false"/>
+            </VBox>
+
+            <!-- Xác nhận PIN -->
+            <VBox spacing="3">
+                <Label text="Xác nhận PIN:" style="-fx-font-size: 14px;"/>
+                <PasswordField fx:id="PIN2" prefWidth="300"
+                               promptText="Nhập lại mã PIN"/>
+                <Label fx:id="errorPIN2" textFill="red" visible="false"/>
+            </VBox>
+
+            <!-- Nút đăng ký -->
+            <Button fx:id="btnDangKy"
+                    text="Đăng ký"
+                    prefWidth="150" prefHeight="35"
+                    style="-fx-background-color: #0078d7; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"
+                    onAction="#handleRegister"
+                    alignment="CENTER"/>
+
+            <!-- Thông báo chung -->
+            <Label fx:id="lblThongBao"
+                   alignment="CENTER"
+                   prefWidth="300"
+                   style="-fx-text-fill: green; -fx-font-size: 14px; -fx-font-weight: bold;"
+                   visible="false"/>
+        </VBox>
+    </children>
+</AnchorPane>
