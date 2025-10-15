@@ -2,6 +2,7 @@ package Control;
 
 import Model.NguoiDung;
 import Model.SpareKey;
+import View.label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -57,8 +58,8 @@ public class Controller_Register {
         LocalDate ngaySinh = datePicker_ngaySinh.getValue();
         LocalDate hanCCCD = datePicker_hanCCCD.getValue();
 
-        if(!nd.checkThongTin(hoTen,cccd,sdt,passWord,email,diaChi,ngaySinh,hanCCCD)) return;
-//        if(!nd.checkExist(cccd,sdt,email)) return;
+        if (!nd.checkThongTin(hoTen, cccd, sdt, passWord, email, diaChi, ngaySinh, hanCCCD)) return;
+        if(!nd.checkExist(cccd,sdt,email)) return;
 
         hoTen = nd.chuanHoaTen(hoTen);
         diaChi = nd.chuanHoaTen(diaChi);
@@ -72,7 +73,8 @@ public class Controller_Register {
         nd.setHanCCCD(hanCCCD);
         nd.setNgayDangKi(LocalDateTime.now());
         spareKey.setCccd(cccd);
-//        ndd.create(nd);
+        ndd.create(nd);
+//        cái này dùng để lưu cccd là khoá ngoại cho tài khoản ngân hàng----------
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/RegisterBankAccount.fxml"));
         Parent root = loader.load();
 

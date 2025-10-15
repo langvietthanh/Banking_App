@@ -116,7 +116,7 @@ public class TaiKhoan {
         return true;
     }
     public boolean checkExistSTK(String stk){
-        if (ndd.existAttribute("SoTK",stk)){
+        if (ndd.existObject("SoTK",stk)){
             controllerRegisterAccount.getErrorSoTaiKhoan().setText("Số tài khoản đã tồn tại!");
             controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(true);
             return false;

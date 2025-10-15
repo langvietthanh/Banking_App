@@ -31,11 +31,11 @@ public class Controller_Register_Account {
         String stk = SoTaiKhoan.getText();
         String pin = PIN.getText();
         if(!taiKhoan.checkThongTin(stk,pin)) return;
-//        if (!taiKhoan.checkExistSTK(stk)) return;
+        if (!taiKhoan.checkExistSTK(stk)) return;
         taiKhoan.setSoTaiKhoan(stk);
         taiKhoan.setMaPIN(pin);
         taiKhoan.setCccd(spareKey.getCccd());
-//        taiKhoanDAO.create(taiKhoan);
+        taiKhoanDAO.create(taiKhoan);
         Parent root = FXMLLoader.load(getClass().getResource("/View/Success.fxml"));
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

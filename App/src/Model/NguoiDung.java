@@ -6,6 +6,12 @@ import DAO.NguoiDungDAO;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import DAO.NguoiDungDAO;
+import View.alert;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class NguoiDung {
     private String password;
@@ -27,15 +33,14 @@ public class NguoiDung {
                      String email, String diaChi, LocalDate hanCCCD) {
         this.cccd = cccd;
         this.password = password;
-        this.hoTen = hoTen;
+        this.hoTen = chuanHoaTenRieng(hoTen);
         this.ngaySinh = ngaySinh;
         this.soDienThoai = soDienThoai;
         this.email = email;
-        this.diaChi = diaChi;
+        this.diaChi = chuanHoaTenRieng(diaChi);
         this.hanCCCD = hanCCCD;
         this.ngayDangKi = LocalDateTime.now();
     }
-
 
     public NguoiDung(String cccd, String password, String hoTen,
                      LocalDate ngaySinh, String soDienThoai,
@@ -54,82 +59,112 @@ public class NguoiDung {
         this.controllerRegister = controllerRegister;
     }
 
+    public void setHoTen(String hoTen) {this.hoTen = hoTen;}
+
+    public void setNgaySinh(LocalDate ngaySinh) {this.ngaySinh = ngaySinh;}
+
+    public void setCccd(String cccd) {this.cccd = cccd;}
+
+    public void setSoDienThoai(String soDienThoai) {this.soDienThoai = soDienThoai;}
+
+    public void setEmail(String email) {this.email = email;}
+
+    public void setDiaChi(String diaChi) {this.diaChi = diaChi;}
+
+    public void setHanCCCD(LocalDate hanCCCD) {this.hanCCCD = hanCCCD;}
+
+    public void setNgayDangKi(LocalDateTime ngayDangKi) {this.ngayDangKi = ngayDangKi;}
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BaoMat.hashPassword(password);
     }
 
     public String getHoTen() {
         return hoTen;
     }
 
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
-    }
-
     public LocalDate getNgaySinh() {
         return ngaySinh;
-    }
-
-    public void setNgaySinh(LocalDate ngaySinh) {
-        this.ngaySinh = ngaySinh;
     }
 
     public String getCccd() {
         return cccd;
     }
 
-    public void setCccd(String cccd) {
-        this.cccd = cccd;
-    }
-
     public String getSoDienThoai() {
         return soDienThoai;
-    }
-
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getDiaChi() {
         return diaChi;
-    }
-
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
     }
 
     public LocalDate getHanCCCD() {
         return hanCCCD;
     }
 
-    public void setHanCCCD(LocalDate hanCCCD) {
-        this.hanCCCD = hanCCCD;
-    }
-
     public LocalDateTime getNgayDangKi() {
         return ngayDangKi;
     }
 
-    public void setNgayDangKi(LocalDateTime ngayDangKi) {
-        this.ngayDangKi = ngayDangKi;
-    }
-
-    public static boolean Kiem_Tra_SDT(String sdt){
+    public static boolean kiemTraSDT(String sdt){
         sdt = sdt.replaceAll("\\s+", ""); // bỏ khoảng trắng
         // Hỗ trợ dạng +84xxx hoặc 0xxx
-        return sdt.matches("^(\\+84|0)(3|5|7|8|9)\\d{8}$");
+        return sdt.matches("^(\\+84|0)([35789])\\d{8}$");
+    }
+
+    public static boolean kiemTraDauVaoSDT(String sdt) throws SQLException {
+        if(sdt.isEmpty()) {
+            alert.ERROR("Lỗi đăng nhập!","Vui lòng nhập số điện thoại!");
+            return false;
+        }
+        else if(!kiemTraSDT(sdt)) {
+            alert.ERROR("Lỗi đăng nhập!","Định dạng số điện không phù hợp");
+            return false;
+        }
+        else if (! new NguoiDungDAO().existObject("SDT",sdt)) {
+            alert.ERROR("Lỗi đăng nhập!","Người dùng chưa tồn tại trong hệ thống");
+            return false;
+        }
+        return true;
+    }
+
+    private String chuanHoaTenRieng(String Ten){
+        String[] tu = Ten.trim().toLowerCase().split("\\s+");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String word : tu){
+            if (!word.isEmpty()){
+                if (word.charAt(0) == 'đ') stringBuilder.append('Đ');
+                else stringBuilder.append(Character.toUpperCase(word.charAt(0)));
+                stringBuilder.append(word.substring(1))
+                        .append(" ");
+            }
+        }
+        return stringBuilder.toString().trim();
+    }
+
+    public static int kiemTraMatKhau(String matKhau, String matKhauXacThuc){
+        //----------Độ dài 8 (1)-------------
+        if (matKhau.length()<8) return 1;
+
+        //-----------kiểm tra định dạng mật khẩu (2) --------
+        boolean hasUpper = matKhau.matches(".*[A-Z].*");
+        boolean hasLower = matKhau.matches(".*[a-z].*");
+        boolean hasDigit = matKhau.matches(".*[0-9].*");
+        boolean hasSpecial = matKhau.matches(".*[@!%&*$#].*");
+        if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) return 2;
+
+        //------------kiểm tra nhập lại mật khẩu có đúng không (3)-------
+        if( !matKhau.equals(matKhauXacThuc) )return 3;
+        return 0;
     }
     //---------Methob Thông báo lỗi-----------
     public boolean checkThongTin(String hoTen,String cccd,String sdt,String mk,String email,String diaChi,LocalDate ngaySinh,LocalDate hanCCCD){
@@ -185,7 +220,7 @@ public class NguoiDung {
         return true;
     }
     private boolean checkExistCCCD(String cccd){
-        boolean exist = ndd.existAttribute("CCCD",cccd);
+        boolean exist = ndd.existObject("CCCD",cccd);
         if (exist){
             controllerRegister.getErrorCCCD().setText("Căn cước công dân đã tồn tại!");
             controllerRegister.getErrorCCCD().setVisible(true);
@@ -210,7 +245,7 @@ public class NguoiDung {
         return true;
     }
     private boolean checkExistSDT(String sdt){
-        boolean exist  = ndd.existAttribute("SDT" , sdt);
+        boolean exist  = ndd.existObject("SDT" , sdt);
         if (exist){
             controllerRegister.getErrorSDT().setText("Số điện thoại đã tồn tại!");
             controllerRegister.getErrorSDT().setVisible(true);
@@ -266,7 +301,7 @@ public class NguoiDung {
         return true;
     }
     private boolean checkExistEMAIL(String email){
-        boolean exist  = ndd.existAttribute("Email" , email);
+        boolean exist  = ndd.existObject("Email" , email);
         if (exist){
             controllerRegister.getErrorEmail().setText("Email đã tồn tại!");
             controllerRegister.getErrorEmail().setVisible(true);
