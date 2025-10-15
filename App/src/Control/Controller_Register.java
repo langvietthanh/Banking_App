@@ -1,9 +1,9 @@
 package Control;
 
 import Model.NguoiDung;
+import View.label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import DAO.NguoiDungDAO;
@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.lang.String;
 import java.time.Period;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class Controller_Register {
     @FXML private TextField textField_hoten;
@@ -37,7 +36,9 @@ public class Controller_Register {
     @FXML private Label errorHanCCCD;
 
     private final NguoiDungDAO ndd = new NguoiDungDAO();
+    private static NguoiDung nd = null;
     private boolean flag = true;
+
 
     public void handleRegister(ActionEvent actionEvent ) throws IOException, SQLException {
         flag = true;
@@ -49,18 +50,16 @@ public class Controller_Register {
         String diaChi = textField_diaChi.getText();
         LocalDate ngaySinh = datePicker_ngaySinh.getValue();
         LocalDate hanCCCD = datePicker_hanCCCD.getValue();
-
+//        nd = new NguoiDung(cccd,passWord,hoTen,ngaySinh,sdt,email,diaChi,hanCCCD);
         checkThongTin(hoTen,cccd,sdt,passWord,email,diaChi,ngaySinh,hanCCCD);
         if (!flag) return;
         checkExist(cccd,sdt,email);
         if (!flag) return;
-        hoTen = chuanHoaTen(hoTen);
-        diaChi = chuanHoaTen(diaChi);
-        NguoiDung nd = new NguoiDung(cccd,passWord,hoTen,ngaySinh,sdt,email,diaChi,hanCCCD);
+
         ndd.create(nd);
     }
     //---------Methob Thông báo lỗi-----------
-    private void checkThongTin(String hoTen,String cccd,String sdt,String mk,String email,String diaChi,LocalDate ngaySinh,LocalDate hanCCCD){
+    public void checkThongTin(String hoTen,String cccd,String sdt,String mk,String email,String diaChi,LocalDate ngaySinh,LocalDate hanCCCD){
         checkHoTen(hoTen);
         checkCCCD(cccd);
         checkSDT(sdt);
@@ -83,12 +82,10 @@ public class Controller_Register {
         checkHoTenRegex(hoTen);
         if (!flag) return;
     }
+
     private void checkHoTenEmpty(String hoTen){
         if (hoTen.trim().isEmpty()) {
-            errorHoTen.setText("Vui lòng nhập họ và tên!");
-            errorHoTen.setVisible(true);
-            errorHoTen.setText("Vui lòng nhập họ và tên!");
-            errorHoTen.setVisible(true);
+            label.ERROR(errorHoTen,"Vui lòng nhập họ và tên!");
             flag = false;
         } else {
             errorHoTen.setVisible(false);
@@ -97,8 +94,7 @@ public class Controller_Register {
     private void checkHoTenRegex(String hoTen){
         for (char c:hoTen.toCharArray()){
             if (!Character.isLetter(c) && c != ' '){
-                errorHoTen.setText("Vui lòng nhập lại họ tên!");
-                errorHoTen.setVisible(true);
+                label.ERROR(errorHoTen,"Vui lòng nhập lại họ tên!");
                 flag = false;
                 return;
             }
@@ -122,7 +118,7 @@ public class Controller_Register {
         errorCCCD.setVisible(false);
     }
     private void checkExistCCCD(String cccd){
-        boolean exist = ndd.existAttribute("CCCD",cccd);
+        boolean exist = ndd.existObject("CCCD",cccd);
         if (exist){
             errorCCCD.setText("Căn cước công dân đã tồn tại!");
             errorCCCD.setVisible(true);
@@ -148,7 +144,7 @@ public class Controller_Register {
         errorSDT.setVisible(false);
     }
     private void checkExistSDT(String sdt){
-        boolean exist  = ndd.existAttribute("SDT" , sdt);
+        boolean exist  = ndd.existObject("SDT" , sdt);
         if (exist){
             errorSDT.setText("Số điện thoại đã tồn tại!");
             errorSDT.setVisible(true);
@@ -207,7 +203,7 @@ public class Controller_Register {
         errorEmail.setVisible(false);
     }
     private void checkExistEMAIL(String email){
-        boolean exist  = ndd.existAttribute("Email" , email);
+        boolean exist  = ndd.existObject("Email" , email);
         if (exist){
             errorEmail.setText("Email đã tồn tại!");
             errorEmail.setVisible(true);
@@ -262,18 +258,6 @@ public class Controller_Register {
         }
         errorHanCCCD.setVisible(false);
     }
-    private String chuanHoaTen(String hoTen){
-        String[] tu = hoTen.trim().toLowerCase().split("\\s+");
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String word : tu){
-            if (!word.isEmpty()){
-                if (word.charAt(0) == 'đ') stringBuilder.append('Đ');
-                else stringBuilder.append(Character.toUpperCase(word.charAt(0)));
-                stringBuilder.append(word.substring(1))
-                        .append(" ");
-            }
-        }
-        return stringBuilder.toString().trim();
-    }
+
 }
 

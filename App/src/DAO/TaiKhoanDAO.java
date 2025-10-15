@@ -28,25 +28,7 @@ public class TaiKhoanDAO implements interfaceDAO<TaiKhoan> {
         }
         JDBCUtil.disconnect(con);
     }
-    @Override
-    public <V> void updateAttribute(String attribute,V value,String SoTK){
-        Connection con = JDBCUtil.getConnection();
-        String sql = "UPDATE TaiKhoan "
-                +"SET "
-                +attribute+" = ? "
-                +"WHERE SoTK = ?;";
-        try{
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setObject(1,value);
-            ps.setString(2,SoTK);
 
-            ps.executeUpdate();
-            ps.close();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        JDBCUtil.disconnect(con);
-    }
     @Override
     public void delete(TaiKhoan account) {
         Connection con = JDBCUtil.getConnection();
@@ -67,7 +49,12 @@ public class TaiKhoanDAO implements interfaceDAO<TaiKhoan> {
         JDBCUtil.disconnect(con);
     }
 
-    public boolean existAttribute(String attribute,String value){
+    @Override
+    public TaiKhoan findByAttribute(String attribute, String key) {
+        return null;
+    }
+
+    public boolean existObject(String attribute, String value){
         Connection con = JDBCUtil.getConnection();
         boolean exist = true;
         String sql = "SELECT "+attribute+" FROM TaiKhoan WHERE "+attribute+" = ?;";

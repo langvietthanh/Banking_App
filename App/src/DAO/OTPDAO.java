@@ -5,8 +5,9 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-public class OTPDAO {
+public class OTPDAO{
     // Lưu OTP hash
     public void saveOtp(String sdt, String otpHash, LocalDateTime expiresAt) throws SQLException {
         Connection con = JDBCUtil.getConnection();
