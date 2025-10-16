@@ -4,9 +4,9 @@ import DAO.NguoiDungDAO;
 import DAO.OTPDAO;
 import Model.BaoMat;
 import Model.NguoiDung;
-import View.alert;
-import View.label;
-import View.scene;
+import View.Popup.alert;
+import View.Popup.label;
+import View.Popup.scene;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import java.time.LocalDateTime;
 
 public class Controller_ForgotPassword {
-    private static NguoiDungDAO NDDAO = new NguoiDungDAO();
+    private static final NguoiDungDAO NDDAO = new NguoiDungDAO();
     public static OTPDAO OtpDAO = new OTPDAO();
     public static NguoiDung nd;
     public static String SDT;
@@ -42,7 +42,7 @@ public class Controller_ForgotPassword {
 
             OtpDAO.saveOtp(SDT,otp_hash,expiresAt);
 
-            scene.change(actionEvent,"/View/VerifyOTP.fxml","Xác thực OTP");
+            scene.change(actionEvent, "/View/Login/VerifyOTPPassword.fxml","Xác thực OTP");
 
         }
         TextField_SoDienThoai.setText("");
@@ -53,14 +53,16 @@ public class Controller_ForgotPassword {
         String HashedOTP_NguoiDung = BaoMat.sha256(OTP_NguoiDung);
 
         if(OtpDAO.verifyOtp(SDT,HashedOTP_NguoiDung)) {
-            scene.change(actionEvent, "/View/ResetPassword.fxml","Cấp lại mật khẩu");
+            scene.change(actionEvent, "/View/Login/ResetPassword.fxml","Cấp lại mật khẩu");
         }
         else alert.ERROR("Mã OTP lỗi!","Mã OTP không chính xác! \n Yêu cầu nhập lại");
     }
 
     public void capNhatMatKhau(ActionEvent actionEvent) throws Exception {
-        String matKhau =  PasswordField_NhapMatKhau.getText()
-                , matKhauXacThuc = PasswordField_XacThucMatKhau.getText();
+
+        String matKhau =  PasswordField_NhapMatKhau.getText();
+        String matKhauXacThuc = PasswordField_XacThucMatKhau.getText();
+
         int mode = NguoiDung.kiemTraMatKhau(matKhau,matKhauXacThuc);
 
         if(mode != 0) xuatThongTinLoi(mode);
@@ -72,7 +74,7 @@ public class Controller_ForgotPassword {
             nd.setPassword(matKhau);
             if(NDDAO.update(nd)) {
                 alert.INFORMATION("Thành công!", "Mật khẩu đã được thiết lập lại");
-                scene.change(actionEvent,"/View/Login.fxml","");
+                scene.change(actionEvent, "/View/Login/Login.fxml","");
             }
         }
     }

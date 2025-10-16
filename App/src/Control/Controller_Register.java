@@ -2,7 +2,6 @@ package Control;
 
 import Model.NguoiDung;
 import Model.SpareKey;
-import View.label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,9 +17,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.lang.String;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.Objects;
-import java.util.concurrent.ScheduledExecutorService;
+
 
 public class Controller_Register {
     @FXML private TextField textField_hoten;
@@ -47,7 +44,9 @@ public class Controller_Register {
     private final NguoiDungDAO ndd = new NguoiDungDAO();
     private final NguoiDung nd = new NguoiDung();
 
+
     public void handleRegister(ActionEvent actionEvent ) throws IOException, SQLException {
+
         nd.setControllerRegister(this);
         String hoTen = textField_hoten.getText();
         String cccd = textField_cccd.getText();
@@ -61,8 +60,6 @@ public class Controller_Register {
         if (!nd.checkThongTin(hoTen, cccd, sdt, passWord, email, diaChi, ngaySinh, hanCCCD)) return;
         if(!nd.checkExist(cccd,sdt,email)) return;
 
-        hoTen = nd.chuanHoaTen(hoTen);
-        diaChi = nd.chuanHoaTen(diaChi);
         nd.setHoTen(hoTen);
         nd.setCccd(cccd);
         nd.setPassword(passWord);
@@ -73,13 +70,16 @@ public class Controller_Register {
         nd.setHanCCCD(hanCCCD);
         nd.setNgayDangKi(LocalDateTime.now());
         spareKey.setCccd(cccd);
+
         ndd.create(nd);
 //        cái này dùng để lưu cccd là khoá ngoại cho tài khoản ngân hàng----------
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/RegisterBankAccount.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login/RegisterBankAccount.fxml"));
         Parent root = loader.load();
 
         Controller_Register_Account controllerRegisterAccount = loader.getController();
         controllerRegisterAccount.setSpareKey(spareKey);
+
+//        scene.change(actionEvent,"/View/RegisterBankAccount.fxml","Banking App");
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

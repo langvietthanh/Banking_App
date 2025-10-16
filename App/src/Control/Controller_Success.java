@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class Controller_Success {
     public void handleSuccess(ActionEvent actionEvent ) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/View/Login.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/View/Login/Login.fxml")));
         Scene scene = new Scene(root);
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

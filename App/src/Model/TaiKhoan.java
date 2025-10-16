@@ -1,7 +1,8 @@
 package Model;
 
 import Control.Controller_Register_Account;
-import DAO.NguoiDungDAO;
+import DAO.TaiKhoanDAO;
+import View.Popup.label;
 
 import java.time.LocalDateTime;
 
@@ -14,9 +15,11 @@ public class TaiKhoan {
 //    private String trangThai;          // "HoatDong", "Dong"
 
     private Controller_Register_Account controllerRegisterAccount;
-    private NguoiDungDAO ndd = new NguoiDungDAO();
+    private final TaiKhoanDAO tkd =  new TaiKhoanDAO();
     // ----- Constructors -----
-    public TaiKhoan() {}
+    public TaiKhoan() {
+        this.ngayTao = LocalDateTime.now();
+    }
 
     public TaiKhoan(String soTaiKhoan, String maPIN, LocalDateTime ngayTao) {
         this.soTaiKhoan = soTaiKhoan;
@@ -40,7 +43,7 @@ public class TaiKhoan {
     }
 
     public void setMaPIN(String maPIN) {
-        this.maPIN = maPIN;
+        this.maPIN = BaoMat.hashPassword(maPIN);
     }
 
     public long getSoDu() {
@@ -73,19 +76,17 @@ public class TaiKhoan {
        return false;
     }
     private boolean checkThongTinSTK(String stk){
+
         if (stk.trim().isEmpty()){
-            controllerRegisterAccount.getErrorSoTaiKhoan().setText("Vui Lòng nhập số tài khoản!");
-            controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(true);
+            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui Lòng nhập số tài khoản!");
             return false;
         }
         if (stk.trim().length()<10||stk.trim().length()>14){
-            controllerRegisterAccount.getErrorSoTaiKhoan().setText("Vui lòng nhập lại số tài khoản!");
-            controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(true);
+            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
             return false;
         }
         if (!stk.matches("[0-9]+")){
-            controllerRegisterAccount.getErrorSoTaiKhoan().setText("Vui lòng nhập lại số tài khoản!");
-            controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(true);
+            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
             return false;
         }
         controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(false);
@@ -116,7 +117,7 @@ public class TaiKhoan {
         return true;
     }
     public boolean checkExistSTK(String stk){
-        if (ndd.existObject("SoTK",stk)){
+        if (tkd.existObject("SoTaiKhoan",stk)){
             controllerRegisterAccount.getErrorSoTaiKhoan().setText("Số tài khoản đã tồn tại!");
             controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(true);
             return false;

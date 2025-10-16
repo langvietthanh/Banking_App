@@ -6,12 +6,10 @@ import DAO.NguoiDungDAO;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import DAO.NguoiDungDAO;
-import View.alert;
+
+import View.Popup.alert;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class NguoiDung {
     private String password;
@@ -33,11 +31,11 @@ public class NguoiDung {
                      String email, String diaChi, LocalDate hanCCCD) {
         this.cccd = cccd;
         this.password = password;
-        this.hoTen = chuanHoaTenRieng(hoTen);
+        this.hoTen = chuanHoaTen(hoTen);
         this.ngaySinh = ngaySinh;
         this.soDienThoai = soDienThoai;
         this.email = email;
-        this.diaChi = chuanHoaTenRieng(diaChi);
+        this.diaChi = chuanHoaTen(diaChi);
         this.hanCCCD = hanCCCD;
         this.ngayDangKi = LocalDateTime.now();
     }
@@ -59,7 +57,7 @@ public class NguoiDung {
         this.controllerRegister = controllerRegister;
     }
 
-    public void setHoTen(String hoTen) {this.hoTen = hoTen;}
+    public void setHoTen(String hoTen) {this.hoTen = chuanHoaTen(hoTen);}
 
     public void setNgaySinh(LocalDate ngaySinh) {this.ngaySinh = ngaySinh;}
 
@@ -69,7 +67,7 @@ public class NguoiDung {
 
     public void setEmail(String email) {this.email = email;}
 
-    public void setDiaChi(String diaChi) {this.diaChi = diaChi;}
+    public void setDiaChi(String diaChi) {this.diaChi = chuanHoaTen(diaChi) ;}
 
     public void setHanCCCD(LocalDate hanCCCD) {this.hanCCCD = hanCCCD;}
 
@@ -135,20 +133,6 @@ public class NguoiDung {
             return false;
         }
         return true;
-    }
-
-    private String chuanHoaTenRieng(String Ten){
-        String[] tu = Ten.trim().toLowerCase().split("\\s+");
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String word : tu){
-            if (!word.isEmpty()){
-                if (word.charAt(0) == 'đ') stringBuilder.append('Đ');
-                else stringBuilder.append(Character.toUpperCase(word.charAt(0)));
-                stringBuilder.append(word.substring(1))
-                        .append(" ");
-            }
-        }
-        return stringBuilder.toString().trim();
     }
 
     public static int kiemTraMatKhau(String matKhau, String matKhauXacThuc){

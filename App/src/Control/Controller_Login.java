@@ -7,11 +7,13 @@ package Control;
 
 import DAO.LockTimeDAO;
 import DAO.NguoiDungDAO;
+import DAO.TaiKhoanDAO;
 import Model.BaoMat;
 import Model.LockTime;
 import Model.NguoiDung;
-import View.alert;
-import View.scene;
+import Model.TaiKhoan;
+import View.Popup.alert;
+import View.Popup.scene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,29 +24,39 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class Controller_Login {
-    public static NguoiDungDAO ndd = new NguoiDungDAO();
-    public static LockTimeDAO ltd = new LockTimeDAO();
-    public LockTime lt;
-    public Button Button_QuenMatKhau;
 
+    public Button Button_QuenMatKhau;
     @FXML
     private TextField TextField_SoDienThoai;
-    private static int LuotDangNhapSai = 0;
-
     @FXML
     private PasswordField TextField_Password;
+
+    private static int LuotDangNhapSai = 0;
+
+    private static String SoDienThoai;
+    private static TaiKhoan taiKhoan;
+    public static NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+    public static TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
+    public static LockTimeDAO lockTimeDAO = new LockTimeDAO();
+    public LockTime lt;
+
 
     public void Dang_Nhap(ActionEvent actionEvent ) throws IOException, SQLException {
         String sdt = TextField_SoDienThoai.getText();
         String password = TextField_Password.getText();
+
         if( NguoiDung.kiemTraDauVaoSDT(sdt) ) {
 
-            NguoiDung nd = ndd.findByAttribute("SDT",sdt);
+            NguoiDung nd = nguoiDungDAO.findByAttribute("SDT",sdt);
 
-            if(ltd.existObject("SDT",sdt)) alert.ERROR("Người dùng bị khóa" , "Vui lòng đăng nhập lại sau\n"+ltd.getLockTime(sdt));
+            if(lockTimeDAO.existObject("SDT",sdt)) alert.ERROR("Người dùng bị khóa" , "Vui lòng đăng nhập lại sau\n"+ lockTimeDAO.getLockTime(sdt));
 
             else if (BaoMat.checkPassword(password , nd.getPassword()) ) {
-                scene.change(actionEvent,"/View/DashBoard.fxml","Màn hình chính");
+
+                taiKhoan = taiKhoanDAO.findByAttribute("CCCD",nd.getCccd());
+                SoDienThoai = nd.getSoDienThoai();
+
+                scene.change(actionEvent, "/View/Main/DashBoard.fxml","Màn hình chính");
             }
             else {
                 LuotDangNhapSai++;
@@ -53,7 +65,7 @@ public class Controller_Login {
             if (LuotDangNhapSai == 3) {
                 LuotDangNhapSai = 0;
                 lt = new LockTime(sdt);
-                ltd.create(lt);
+                lockTimeDAO.create(lt);
             }
         }
         TextField_SoDienThoai.setText("");
@@ -61,10 +73,19 @@ public class Controller_Login {
     }
 
     public void Dang_Ki(ActionEvent actionEvent) throws IOException  {
-        scene.change(actionEvent,"/View/Register.fxml","Đăng kí");
+        scene.change(actionEvent, "/View/Login/Register.fxml","Đăng kí");
     }
 
     public void Quen_Mat_Khau(ActionEvent actionEvent) throws IOException {
-        scene.change(actionEvent,"/View/ForgotPassword.fxml","Quên mật khẩu");
+        scene.change(actionEvent, "/View/Login/ForgotPassword.fxml","Quên mật khẩu");
+    }
+
+//===============Lấy tài khoản lúc đăng nhập dùng cho DashBoard và những chức năng con trong DashBoard===============
+    public static TaiKhoan getTaiKhoan() {
+        return taiKhoan;
+    }
+
+    public static String getSoDienThoai() {
+        return SoDienThoai;
     }
 }

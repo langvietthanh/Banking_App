@@ -26,16 +26,16 @@ public class OTPDAO{
     public boolean verifyOtp(String sdt, String otpHash) throws SQLException {
         deleteExpiredOtps();
         Connection con = JDBCUtil.getConnection();
-        String sql = "SELECT id FROM otp_verify WHERE sdt=? AND otp_hash=? AND used=false AND expires_at > ?";
+        String sql = "SELECT SDT FROM otp_verify WHERE sdt=? AND otp_hash=? AND used=false AND expires_at > ?";
         PreparedStatement p =  con.prepareStatement(sql);
         p.setString(1, sdt);
         p.setString(2, otpHash);
         p.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
         ResultSet rs = p.executeQuery();
         if (rs.next()) {
-            long id = rs.getLong("id");
+            String SDT = rs.getString(1);
             // Đánh dấu đã dùng
-            markOtpUsed(id);
+            markOtpUsed(SDT);
             JDBCUtil.disconnect( con);
             return true;
         }
@@ -44,11 +44,11 @@ public class OTPDAO{
 
     }
 
-    private void markOtpUsed(long otpId) throws SQLException {
+    private void markOtpUsed(String sdt) throws SQLException {
         Connection con = JDBCUtil.getConnection();
-        String sql = "UPDATE otp_verify SET used=true WHERE id=?";
+        String sql = "UPDATE otp_verify SET used=true WHERE sdt=?";
         PreparedStatement p =  con.prepareStatement(sql);
-        p.setLong(1, otpId);
+        p.setString(1, sdt);
         p.executeUpdate();
         JDBCUtil.disconnect( con);
     }

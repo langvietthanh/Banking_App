@@ -13,15 +13,15 @@ public class TaiKhoanDAO implements interfaceDAO<TaiKhoan> {
     @Override
     public void create(TaiKhoan account){
         Connection con = JDBCUtil.getConnection();
-        String sql = "INSERT INTO TaiKhoan (SoTK, maPIN, SoDu, NgayTao,CCCD)"
+        String sql = "INSERT INTO TaiKhoan (CCCD, maPIN,SoTaiKhoan,SoDu,NgayTao)"
                 + " VALUES (?,?,?,?,?);";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,account.getSoTaiKhoan());
+            ps.setString(1,account.getCccd());
             ps.setString(2,account.getMaPIN());
-            ps.setLong(3,account.getSoDu());
-            ps.setObject(4,account.getNgayTao());
-            ps.setString(5,account.getCccd());
+            ps.setString(3,account.getSoTaiKhoan());
+            ps.setLong(4,account.getSoDu());
+            ps.setObject(5,account.getNgayTao());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -35,7 +35,7 @@ public class TaiKhoanDAO implements interfaceDAO<TaiKhoan> {
         Connection con = JDBCUtil.getConnection();
 
         String sql = "delete from TaiKhoan "
-                + "where SoTK = ? ;";
+                + "where SoTaiKhoan = ? ;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 

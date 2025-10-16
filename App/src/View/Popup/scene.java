@@ -1,4 +1,4 @@
-package View;
+package View.Popup;
 
 import Control.Controller_ForgotPassword;
 import javafx.event.ActionEvent;

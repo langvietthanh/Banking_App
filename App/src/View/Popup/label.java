@@ -1,4 +1,4 @@
-package View;
+package View.Popup;
 
 import javafx.scene.control.Label;
 
