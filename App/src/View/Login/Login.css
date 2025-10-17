@@ -1,0 +1,158 @@
+
+/* Background màu xanh nhạt  */
+.root {
+    -fx-background-image: url("/View/Image/background_login.jpg");
+-fx-background-size: cover;
+-fx-background-repeat: no-repeat;
+-fx-background-position: center;
+
+}
+
+/* Styling cho AnchorPane */
+.anchor-pane {
+    -fx-background-color: #c8e6c9;
+}
+
+/* Styling cho GridPane */
+.grid-pane {
+    -fx-background-color: #c8e6c9;
+    -fx-hgap: 15px;
+    -fx-vgap: 15px;
+}
+
+/* Styling cho Labels - màu xanh đậm, font đậm */
+.label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d4a2b;
+}
+
+/* Styling cho TextField - viền đen, nền trắng */
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+    -fx-border-color: #4a4a4a;
+    -fx-border-radius: 0px;
+    -fx-border-width: 2px;
+    -fx-padding: 8px 10px;
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+    -fx-pref-height: 35px;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2d4a2b;
+    -fx-border-width: 2px;
+}
+
+/* Placeholder text */
+.text-field:empty {
+    -fx-prompt-text-fill: #888888;
+}
+
+/* Styling cho PasswordField */
+.password-field {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+    -fx-border-color: #4a4a4a;
+    -fx-border-radius: 0px;
+    -fx-border-width: 2px;
+    -fx-padding: 8px 10px;
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+    -fx-pref-height: 35px;
+}
+
+.password-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2d4a2b;
+    -fx-border-width: 2px;
+}
+
+.password-field:empty {
+    -fx-prompt-text-fill: #888888;
+}
+
+/* Styling cho Buttons - màu xanh lá */
+.button {
+    -fx-background-color: #4a7c59;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 0px;
+    -fx-border-color: #2d4a2b;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+    -fx-min-width: 120px;
+    -fx-min-height: 40px;
+    -fx-pref-height: 40px;
+}
+
+.button:hover {
+    -fx-background-color: #5a9169;
+}
+
+.button:pressed {
+    -fx-background-color: #3a6c49;
+}
+
+/* Button Đăng ký  */
+.button-register {
+    -fx-background-color: #5a9169;
+    -fx-border-color: #4a7c59;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-min-width: 100px;
+    -fx-min-height: 40px;
+}
+
+.button-register:hover {
+    -fx-background-color: #6aa179;
+}
+
+/* Button Quên mật khẩu - màu xám */
+.button-secondary {
+    -fx-background-color: #7a7a7a;
+    -fx-border-color: #4a4a4a;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-min-width: 140px;
+    -fx-min-height: 40px;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #8a8a8a;
+}
+
+/* Title Label */
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d4a2b;
+}
+
+/* Error/Warning Label - màu đỏ */
+.error-label {
+    -fx-text-fill: #c62828;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: #ffebee;
+    -fx-padding: 5px 10px;
+    -fx-border-color: #c62828;
+    -fx-border-width: 1px;
+}
+
+/* Success Label - màu xanh */
+.success-label {
+    -fx-text-fill: #2e7d32;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: #e8f5e9;
+    -fx-padding: 5px 10px;
+    -fx-border-color: #2e7d32;
+    -fx-border-width: 1px;
+}

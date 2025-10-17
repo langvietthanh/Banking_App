@@ -41,7 +41,7 @@ public class Controller_Login {
     public LockTime lt;
 
 
-    public void Dang_Nhap(ActionEvent actionEvent ) throws IOException, SQLException {
+    public void handleDangNhap(ActionEvent actionEvent ) throws IOException, SQLException {
         String sdt = TextField_SoDienThoai.getText();
         String password = TextField_Password.getText();
 
@@ -72,11 +72,11 @@ public class Controller_Login {
         TextField_Password.setText("");
     }
 
-    public void Dang_Ki(ActionEvent actionEvent) throws IOException  {
+    public void handleDangKi(ActionEvent actionEvent) throws IOException  {
         scene.change(actionEvent, "/View/Login/Register.fxml","Đăng kí");
     }
 
-    public void Quen_Mat_Khau(ActionEvent actionEvent) throws IOException {
+    public void handleQuenMatKhau(ActionEvent actionEvent) throws IOException {
         scene.change(actionEvent, "/View/Login/ForgotPassword.fxml","Quên mật khẩu");
     }
 

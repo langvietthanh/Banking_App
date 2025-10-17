@@ -28,7 +28,7 @@ public class Controller_ForgotPassword {
     public Label Label_MatKhauLoi;
     public Label Label_MatKhauXacThucLoi;
 
-    public void guiMaXacNhan(ActionEvent actionEvent) throws Exception {
+    public void handleGuiMaXacNhan(ActionEvent actionEvent) throws Exception {
         SDT = TextField_SoDienThoai.getText();
         if(NguoiDung.kiemTraDauVaoSDT(SDT)){
 
@@ -48,7 +48,7 @@ public class Controller_ForgotPassword {
         TextField_SoDienThoai.setText("");
     }
 
-    public void xacNhanOTP(ActionEvent actionEvent) throws Exception {
+    public void handleXacNhanOTP(ActionEvent actionEvent) throws Exception {
         String OTP_NguoiDung = TextField_OTP.getText();
         String HashedOTP_NguoiDung = BaoMat.sha256(OTP_NguoiDung);
 
@@ -58,7 +58,7 @@ public class Controller_ForgotPassword {
         else alert.ERROR("Mã OTP lỗi!","Mã OTP không chính xác! \n Yêu cầu nhập lại");
     }
 
-    public void capNhatMatKhau(ActionEvent actionEvent) throws Exception {
+    public void handleCapNhatMatKhau(ActionEvent actionEvent) throws Exception {
 
         String matKhau =  PasswordField_NhapMatKhau.getText();
         String matKhauXacThuc = PasswordField_XacThucMatKhau.getText();
