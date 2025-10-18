@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface interfaceDAO<T> {
-    public  void create(T t);
+    public  void create(T t) throws SQLException;
     public  void delete(T t) throws SQLException;
     public T findByAttribute(String attribute, String key) throws SQLException;
     public boolean existObject(String attribute, String value) throws SQLException;

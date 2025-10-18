@@ -8,7 +8,7 @@
     <Button layoutX="66.0" layoutY="241.0" onAction="#handleChuyenTien" text="Chuyển Tiền" />
    <Label layoutX="76.0" layoutY="67.0" text="Số dư" />
    <Label layoutX="76.0" layoutY="35.0" text="Tên tài khoản" />
-   <Label fx:id="Label_TenTaiKhoan" layoutX="207.0" layoutY="35.0" text="Label" />
+   <Label fx:id="Label_SoTaiKhoan" layoutX="207.0" layoutY="35.0" text="Label" />
    <Label fx:id="Label_SoDu" layoutX="207.0" layoutY="67.0" text="Label" />
    <Button layoutX="207.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleLichSu" prefHeight="25.0" prefWidth="82.0" text="Lịch Sử" />
    <Button layoutX="381.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleCaiDat" prefHeight="25.0" prefWidth="72.0" text="Cài đặt" />

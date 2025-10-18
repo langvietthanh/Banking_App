@@ -6,8 +6,9 @@ import Model.BaoMat;
 import Model.NguoiDung;
 import View.Popup.alert;
 import View.Popup.label;
-import View.Popup.scene;
+import View.Popup.ManegerScene;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,6 +21,7 @@ public class Controller_ForgotPassword {
     public static OTPDAO OtpDAO = new OTPDAO();
     public static NguoiDung nd;
     public static String SDT;
+    private ManegerScene scene;
 
     public TextField TextField_SoDienThoai,TextField_OTP;
     public Label Label_ExpireTime;
@@ -41,8 +43,8 @@ public class Controller_ForgotPassword {
             LocalDateTime expiresAt = BaoMat.nowPlusMinutes(5);
 
             OtpDAO.saveOtp(SDT,otp_hash,expiresAt);
-
-            scene.change(actionEvent, "/View/Login/VerifyOTPPassword.fxml","Xác thực OTP");
+            scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/VerifyOTPPassword.fxml")));
+            scene.change(actionEvent,"Xác thực OTP");
 
         }
         TextField_SoDienThoai.setText("");
@@ -53,7 +55,8 @@ public class Controller_ForgotPassword {
         String HashedOTP_NguoiDung = BaoMat.sha256(OTP_NguoiDung);
 
         if(OtpDAO.verifyOtp(SDT,HashedOTP_NguoiDung)) {
-            scene.change(actionEvent, "/View/Login/ResetPassword.fxml","Cấp lại mật khẩu");
+            scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/ResetPassword.fxml")));
+            scene.change(actionEvent, "Cấp lại mật khẩu");
         }
         else alert.ERROR("Mã OTP lỗi!","Mã OTP không chính xác! \n Yêu cầu nhập lại");
     }
@@ -74,7 +77,8 @@ public class Controller_ForgotPassword {
             nd.setPassword(matKhau);
             if(NDDAO.update(nd)) {
                 alert.INFORMATION("Thành công!", "Mật khẩu đã được thiết lập lại");
-                scene.change(actionEvent, "/View/Login/Login.fxml","");
+                scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Login.fxml")));
+                scene.change(actionEvent,"");
             }
         }
     }

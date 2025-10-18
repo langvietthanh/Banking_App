@@ -3,9 +3,10 @@ package Control;
 import DAO.TaiKhoanDAO;
 import Model.SpareKey;
 import Model.TaiKhoan;
-import View.Popup.scene;
+import View.Popup.ManegerScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class Controller_Register_Account {
 
     private final TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
     private final TaiKhoan taiKhoan = new TaiKhoan();
+    private ManegerScene scene;
+
     public void handleRegister(ActionEvent actionEvent ) throws IOException, SQLException{
 
         taiKhoan.setControllerRegisterAccount(this);
@@ -35,8 +38,8 @@ public class Controller_Register_Account {
         taiKhoan.setMaPIN(pin);
         taiKhoan.setCccd(spareKey.getCccd());
         taiKhoanDAO.create(taiKhoan);
-
-        scene.change(actionEvent, "/View/Login/Success.fxml","Thông báo");
+        scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Success.fxml")));
+        scene.change(actionEvent,"Thông báo");
 
     }
     public PasswordField getPIN2() {

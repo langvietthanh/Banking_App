@@ -13,10 +13,10 @@ import Model.LockTime;
 import Model.NguoiDung;
 import Model.TaiKhoan;
 import View.Popup.alert;
-import View.Popup.scene;
+import View.Popup.ManegerScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -24,8 +24,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class Controller_Login {
+    private Controller_DashBoard controller_DashBoard;
+    private final ManegerScene scene = new ManegerScene();
 
-    public Button Button_QuenMatKhau;
     @FXML
     private TextField TextField_SoDienThoai;
     @FXML
@@ -35,28 +36,27 @@ public class Controller_Login {
 
     private static String SoDienThoai;
     private static TaiKhoan taiKhoan;
+    private static NguoiDung nguoiDung;
     public static NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
     public static TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
     public static LockTimeDAO lockTimeDAO = new LockTimeDAO();
-    public LockTime lt;
-
+    public LockTime lockTime;
 
     public void Dang_Nhap(ActionEvent actionEvent ) throws IOException, SQLException {
         String sdt = TextField_SoDienThoai.getText();
         String password = TextField_Password.getText();
-
         if( NguoiDung.kiemTraDauVaoSDT(sdt) ) {
-
-            NguoiDung nd = nguoiDungDAO.findByAttribute("SDT",sdt);
+            setNguoiDung(nguoiDungDAO.findByAttribute("SDT",sdt));
 
             if(lockTimeDAO.existObject("SDT",sdt)) alert.ERROR("Người dùng bị khóa" , "Vui lòng đăng nhập lại sau\n"+ lockTimeDAO.getLockTime(sdt));
 
-            else if (BaoMat.checkPassword(password , nd.getPassword()) ) {
+            else if (BaoMat.checkPassword(password , nguoiDung.getPassword()) ) {
+                setTaiKhoan(taiKhoanDAO.findByAttribute("CCCD",nguoiDung.getCccd()));
+                SoDienThoai = sdt;
+                scene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/DashBoard.fxml")));
+                truyenDuLieu();
+                scene.change(actionEvent,"Màn hình chính");
 
-                taiKhoan = taiKhoanDAO.findByAttribute("CCCD",nd.getCccd());
-                SoDienThoai = nd.getSoDienThoai();
-
-                scene.change(actionEvent, "/View/Main/DashBoard.fxml","Màn hình chính");
             }
             else {
                 LuotDangNhapSai++;
@@ -64,8 +64,10 @@ public class Controller_Login {
             }
             if (LuotDangNhapSai == 3) {
                 LuotDangNhapSai = 0;
-                lt = new LockTime(sdt);
-                lockTimeDAO.create(lt);
+                lockTime = new LockTime(sdt);
+                lockTimeDAO.create(lockTime);
+                alert.ERROR("Tài khoản bị khóa" , "Tài khoản của bạn tạm thời bị khóa\nVui lòng thử lại sau " + lockTimeDAO.getLockTime(sdt));
+
             }
         }
         TextField_SoDienThoai.setText("");
@@ -73,19 +75,36 @@ public class Controller_Login {
     }
 
     public void Dang_Ki(ActionEvent actionEvent) throws IOException  {
-        scene.change(actionEvent, "/View/Login/Register.fxml","Đăng kí");
+        scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Register.fxml")));
+        scene.change(actionEvent,"Đăng kí");
     }
 
     public void Quen_Mat_Khau(ActionEvent actionEvent) throws IOException {
-        scene.change(actionEvent, "/View/Login/ForgotPassword.fxml","Quên mật khẩu");
+        scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/ForgotPassword.fxml")));
+        scene.change(actionEvent, "Quên mật khẩu");
     }
 
 //===============Lấy tài khoản lúc đăng nhập dùng cho DashBoard và những chức năng con trong DashBoard===============
-    public static TaiKhoan getTaiKhoan() {
-        return taiKhoan;
+    public void setTaiKhoan(TaiKhoan taiKhoan) throws SQLException {
+        Controller_Login.taiKhoan = taiKhoan ;
     }
 
-    public static String getSoDienThoai() {
-        return SoDienThoai;
+    private void truyenDuLieu() throws SQLException, IOException {
+        setController();
+        controller_DashBoard.setTaiKhoan(taiKhoan);
+        controller_DashBoard.setSoDienThoai(SoDienThoai);
+        controller_DashBoard.reload();
+    }
+
+    public void setNguoiDung(NguoiDung nd) {
+        nguoiDung = nd;
+    }
+
+    public void setController_DashBoard() throws IOException {
+        this.controller_DashBoard = scene.getLoader().getController();
+    }
+
+    private void setController() throws IOException {
+        setController_DashBoard();
     }
 }

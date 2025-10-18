@@ -6,15 +6,18 @@ import View.Popup.label;
 
 import java.time.LocalDateTime;
 
+import static Control.Controller_Login.taiKhoanDAO;
+
 public class TaiKhoan {
-    private String soTaiKhoan;         // Số tài khoản duy nhất
-    private long soDu;               // Số dư hiện tại
-    private String maPIN;
-    private LocalDateTime ngayTao;   // Ngày tạo tài khoản
     private String cccd;
-//    private String trangThai;          // "HoatDong", "Dong"
+    private String maPIN;
+    private String soTaiKhoan;
+    private String loaiTaiKhoan;
+    private long soDu;
+    private LocalDateTime ngayTao;
 
     private Controller_Register_Account controllerRegisterAccount;
+
     private final TaiKhoanDAO tkd =  new TaiKhoanDAO();
     // ----- Constructors -----
     public TaiKhoan() {
@@ -28,6 +31,20 @@ public class TaiKhoan {
         this.ngayTao = ngayTao;
     }
 
+    public TaiKhoan(String cccd, String maPIN, String soTaiKhoan, String loaiTaiKhoan, long soDu, LocalDateTime ngayTao) {
+        this.cccd = cccd;
+        this.maPIN = maPIN;
+        this.soTaiKhoan = soTaiKhoan;
+        this.loaiTaiKhoan = loaiTaiKhoan;
+        this.soDu = soDu;
+        this.ngayTao = ngayTao;
+    }
+
+    public int kiemTraSoDu(double soTienGiaoDich) {
+        if (soDu < soTienGiaoDich) return 1;
+        else if(soTienGiaoDich < soDu && soDu - soTienGiaoDich < 50) return 2;
+        return 0;
+    }
     // ----- Getters & Setters -----
 
     public String getSoTaiKhoan() {
@@ -72,8 +89,7 @@ public class TaiKhoan {
 
     //    -------------- Kiểm Tra Lỗi cho phần đăng kí------------
     public boolean checkThongTin(String stk,String pin){
-        if (checkThongTinSTK(stk)&checkThongTinPIN(pin)) return true;
-       return false;
+        return checkThongTinSTK(stk) & checkThongTinPIN(pin);
     }
     private boolean checkThongTinSTK(String stk){
 
