@@ -45,7 +45,6 @@ public class Controller_DashBoard {
     public void reload(){
         String soTaiKhoan = this.taiKhoan.getSoTaiKhoan();
         String soDu = String.valueOf(Math.round(this.taiKhoan.getSoDu()));
-
         Label_SoTaiKhoan.setText(soTaiKhoan);
         Label_SoDu.setText(soDu);
     }

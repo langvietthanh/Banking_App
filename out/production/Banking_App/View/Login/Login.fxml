@@ -5,57 +5,87 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_Login">
+<AnchorPane prefHeight="471.0" prefWidth="611.0" styleClass="anchor-pane" stylesheets="@Login.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_Login">
 
-    <Button layoutX="150.0" layoutY="241.0" onAction="#Dang_Nhap" text="Đăng nhập" />
+    <!-- Buttons -->
+    <Button fx:id="Button_DangNhap" layoutX="204.0" layoutY="324.0" onAction="#handleDangNhap" prefHeight="40.0" prefWidth="130.0" text="Đăng nhập" />
 
-    <Button layoutX="503.0" layoutY="30.0" onAction="#Dang_Ki" text="Đăng ký" />
+    <Button layoutX="511.0" layoutY="66.0" onAction="#handleDangKi" prefHeight="35.0" prefWidth="80.0" styleClass="button-register" text="Đăng ký" />
 
-    <Button fx:id="Button_QuenMatKhau" layoutX="343.0" layoutY="241.0" onAction="#Quen_Mat_Khau" text="Quên mật khẩu" />
-   <GridPane layoutX="128.0" layoutY="117.0" prefHeight="67.0" prefWidth="344.0">
-     <columnConstraints>
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="108.0" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="236.0" />
-     </columnConstraints>
-     <rowConstraints>
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-     </rowConstraints>
+    <Button fx:id="Button_QuenMatKhau" layoutX="392.0" layoutY="324.0" onAction="#handleQuenMatKhau" prefHeight="40.0" prefWidth="150.0" styleClass="button-secondary" text="Quên mật khẩu" />
+            
+    <!-- GridPane Form -->
+    <GridPane layoutX="128.0" layoutY="117.0" prefHeight="67.0" prefWidth="344.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="108.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="236.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
       <children>
-         <TextField fx:id="TextField_SoDienThoai" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="164.0" promptText="Số điện thoại" GridPane.columnIndex="1">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Đăng Nhập Hệ Thống" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <font>
-               <Font size="15.0" />
+               <Font name="Constantia Bold" size="27.0" />
             </font>
-         </TextField>
-          <PasswordField fx:id="TextField_Password" alignment="TOP_LEFT" focusTraversable="false" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <font>
-               <Font size="15.0" />
-            </font>
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-         </PasswordField>
-         <Label text="Số điện thoại: " textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="15.0" />
-            </font>
-         </Label>
-         <Label text="Mật khẩu: " GridPane.rowIndex="1">
-            <font>
-               <Font name="System Bold" size="15.0" />
-            </font>
-         </Label>
+         </Text>
       </children>
-   </GridPane>
-   <Label fx:id="Label_ThongBaoLoiDangNhap" layoutX="185.0" layoutY="199.0" prefHeight="17.0" prefWidth="230.0" text="Label" />
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
+    </GridPane>
+    
+    <!-- Label thông báo lỗi - giữ nguyên fx:id, ẩn mặc định -->
+    <Label fx:id="Label_ThongBaoLoiDangNhap" layoutX="185.0" layoutY="199.0" prefHeight="25.0" prefWidth="230.0" styleClass="error-label" text="" visible="false" />
+      
+            <!-- PasswordField - giữ nguyên fx:id -->
+      <PasswordField fx:id="TextField_Password" alignment="TOP_LEFT" focusTraversable="false" layoutX="326.0" layoutY="235.0" prefHeight="41.0" prefWidth="207.0" promptText="Password">
+          <font>
+              <Font size="15.0" />
+          </font>
+          <opaqueInsets>
+              <Insets />
+          </opaqueInsets>
+      </PasswordField>
+      <Label layoutX="204.0" layoutY="235.0" text="Mật khẩu: ">
+          <font>
+              <Font name="System Bold" size="15.0" />
+          </font>
+      </Label>
+      <!-- Labels -->
+      <Label layoutX="204.0" layoutY="188.0" text="Số điện thoại: " textAlignment="CENTER">
+          <font>
+              <Font name="System Bold" size="15.0" />
+          </font>
+      </Label>
+      
+            <!-- TextField - giữ nguyên fx:id -->
+      <TextField fx:id="TextField_SoDienThoai" alignment="TOP_LEFT" layoutX="326.0" layoutY="178.0" prefHeight="41.0" prefWidth="207.0" promptText="Số điện thoại">
+          <font>
+              <Font size="15.0" />
+          </font>
+      </TextField>
+   <ImageView fitHeight="109.0" fitWidth="150.0" layoutX="472.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@Image/Screenshot%202025-10-12%20234201_transparent.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../Image/bank_transparent%20(1).png" />
+      </image>
+   </ImageView>
+           
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
 
 </AnchorPane>

@@ -1,0 +1,136 @@
+/* File: Register.css */
+/* Style theo mẫu form ngân hàng */
+
+/* Background màu xanh lá nhạt giống form ngân hàng */
+.root {
+    -fx-background-color: #c8e6c9;
+    -fx-font-family: "Arial", "Segoe UI", sans-serif;
+}
+
+/* Styling cho AnchorPane */
+.anchor-pane {
+    -fx-background-color: #c8e6c9;
+}
+
+/* Styling cho GridPane */
+.grid-pane {
+    -fx-background-color: #c8e6c9;
+}
+
+/* Styling cho Labels - màu xanh đậm, font đậm */
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d4a2b;
+}
+
+/* Styling cho TextField - viền đen, nền trắng */
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+    -fx-border-color: #4a4a4a;
+    -fx-border-radius: 0px;
+    -fx-border-width: 2px;
+    -fx-padding: 8px 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000;
+    -fx-pref-height: 35px;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2d4a2b;
+    -fx-border-width: 2px;
+}
+
+/* Placeholder text */
+.text-field:empty {
+    -fx-prompt-text-fill: #888888;
+}
+
+/* Styling cho DatePicker - giống TextField */
+.date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #4a4a4a;
+    -fx-border-width: 2px;
+    -fx-border-radius: 0px;
+}
+
+.date-picker .text-field {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
+}
+
+.date-picker:focused {
+    -fx-border-color: #2d4a2b;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #e8e8e8;
+    -fx-border-color: #4a4a4a;
+    -fx-border-width: 0 0 0 2px;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #2d4a2b;
+}
+
+/* Styling cho VBox chứa TextField và error label */
+.vbox {
+    -fx-background-color: transparent;
+}
+
+/* Styling cho Button - màu xanh lá */
+.button {
+    -fx-background-color: #4a7c59;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 0px;
+    -fx-border-color: #2d4a2b;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+   
+}
+
+.button:hover {
+    -fx-background-color: #5a9169;
+}
+
+.button:pressed {
+    -fx-background-color: #3a6c49;
+}
+
+/* Button Clear/Cancel - màu xám */
+.button-clear {
+    -fx-background-color: #7a7a7a;
+    -fx-border-color: #4a4a4a;
+}
+
+.button-clear:hover {
+    -fx-background-color: #8a8a8a;
+}
+
+/* Error Label - màu đỏ */
+.error-label {
+    -fx-text-fill: #c62828;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+    -fx-font-weight: normal;
+}
+
+/* Title Label (nếu có) */
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d4a2b;
+}
+
+/* Success Label */
+.success-label {
+    -fx-text-fill: #2e7d32;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}

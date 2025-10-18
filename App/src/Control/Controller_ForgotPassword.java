@@ -9,11 +9,15 @@ import View.Popup.label;
 import View.Popup.ManegerScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class Controller_ForgotPassword {
@@ -30,7 +34,7 @@ public class Controller_ForgotPassword {
     public Label Label_MatKhauLoi;
     public Label Label_MatKhauXacThucLoi;
 
-    public void guiMaXacNhan(ActionEvent actionEvent) throws Exception {
+    public void handleGuiMaXacNhan(ActionEvent actionEvent) throws Exception {
         SDT = TextField_SoDienThoai.getText();
         if(NguoiDung.kiemTraDauVaoSDT(SDT)){
 
@@ -50,7 +54,7 @@ public class Controller_ForgotPassword {
         TextField_SoDienThoai.setText("");
     }
 
-    public void xacNhanOTP(ActionEvent actionEvent) throws Exception {
+    public void handleXacNhanOTP(ActionEvent actionEvent) throws Exception {
         String OTP_NguoiDung = TextField_OTP.getText();
         String HashedOTP_NguoiDung = BaoMat.sha256(OTP_NguoiDung);
 
@@ -61,7 +65,7 @@ public class Controller_ForgotPassword {
         else alert.ERROR("Mã OTP lỗi!","Mã OTP không chính xác! \n Yêu cầu nhập lại");
     }
 
-    public void capNhatMatKhau(ActionEvent actionEvent) throws Exception {
+    public void handleCapNhatMatKhau(ActionEvent actionEvent) throws Exception {
 
         String matKhau =  PasswordField_NhapMatKhau.getText();
         String matKhauXacThuc = PasswordField_XacThucMatKhau.getText();
@@ -88,4 +92,14 @@ public class Controller_ForgotPassword {
         else if(mode == 2) label.ERROR(Label_MatKhauLoi,"Mật khẩu phải có ít nhất 1 kí tự in hoa, 1 kí tự thường, 1 số, 1 kí tự đặc biệt!");
         else if(mode == 3) label.ERROR(Label_MatKhauXacThucLoi,"Mật khẩu xác thực không khớp!");
     }
+    // Quay lại màn Login
+    public void handleBack(ActionEvent actionEvent) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Login/Login.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Đăng nhập");
+            stage.show();
+        }
+
 }

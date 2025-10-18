@@ -29,27 +29,30 @@ public class Controller_Transaction {
     //Attribute===============================================================================//
     private static TaiKhoan taiKhoanNguon;
     private static TaiKhoan taiKhoanDich;
-    private double soTienGiaoDich;
+    private static double soTienGiaoDich;
     private static String soDienThoai;
 
-
-    private final ManegerScene manegerScene = new ManegerScene();
+    //Controller===============================================================================//
     private Controller_KeyBoard  controller_KeyBoard;
     private Controller_DashBoard  controller_DashBoard;
+    private final ManegerScene manegerScene = new ManegerScene();
 
-
+    //FXML===============================================================================//
+    public Label Label_TaiKhoanKhongTonTai;
+    public Label Label_TenTaiKhoan;
+    public Label Label_HienTenTaiKhoanDich;
     public TextField TextField_OTP;
     public Label Label_OTPHetHan;
     public Label Label_TaiKhoanDichLoi;
     public TextField TextField_TaiKhoanNhanTien;
     public TextField TextField_PIN;
 
-
+    //HandleButton===============================================================================//
     public void handleXacNhanTaiKhoanDich(ActionEvent actionEvent) throws IOException, SQLException {
         String soTKDich = TextField_TaiKhoanNhanTien.getText();
-//======Kiểm tra tài khoản đích tồn tại không + không trùng tài khoản gốc====================//
-        int mode = GiaoDich.kiemTraNguonVaDich(taiKhoanNguon.getSoTaiKhoan(), soTKDich);
 
+        //Kiểm tra tài khoản đích tồn tại không + không trùng tài khoản gốc====================//
+        int mode = GiaoDich.kiemTraNguonVaDich(taiKhoanNguon.getSoTaiKhoan(), soTKDich);
         if(mode == 0) {
             setTaiKhoanDich(taiKhoanDAO.findByAttribute("SotaiKhoan",soTKDich));
             nhapSoTien();

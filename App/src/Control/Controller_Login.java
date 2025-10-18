@@ -1,9 +1,5 @@
 package Control;
 
-// Bat su kien
-// Gia su trong Package View co:
-// Window_1 : Cửa sổ đăng nhập
-// Window_2 : Cửa sổ để đăng kí
 
 import DAO.LockTimeDAO;
 import DAO.NguoiDungDAO;
@@ -42,7 +38,7 @@ public class Controller_Login {
     public static LockTimeDAO lockTimeDAO = new LockTimeDAO();
     public LockTime lockTime;
 
-    public void Dang_Nhap(ActionEvent actionEvent ) throws IOException, SQLException {
+    public void handleDangNhap(ActionEvent actionEvent ) throws IOException, SQLException {
         String sdt = TextField_SoDienThoai.getText();
         String password = TextField_Password.getText();
         if( NguoiDung.kiemTraDauVaoSDT(sdt) ) {
@@ -74,12 +70,12 @@ public class Controller_Login {
         TextField_Password.setText("");
     }
 
-    public void Dang_Ki(ActionEvent actionEvent) throws IOException  {
-        scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Register.fxml")));
-        scene.change(actionEvent,"Đăng kí");
+    public void handleDangKi(ActionEvent actionEvent) throws IOException  {
+            scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Register.fxml")));
+            scene.change(actionEvent,"Đăng kí");
     }
 
-    public void Quen_Mat_Khau(ActionEvent actionEvent) throws IOException {
+    public void handleQuenMatKhau(ActionEvent actionEvent) throws IOException {
         scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/ForgotPassword.fxml")));
         scene.change(actionEvent, "Quên mật khẩu");
     }
