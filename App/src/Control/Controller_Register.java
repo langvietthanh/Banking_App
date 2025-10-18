@@ -87,6 +87,15 @@ public class Controller_Register {
         stage.setTitle("Banking App");
         stage.show();
     }
+     // Quay lại màn Login
+    public void handleBack(ActionEvent actionEvent) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Login/Login.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Đăng nhập");
+            stage.show();
+        }
 
     public TextField getTextField_mk2() {
         return textField_mk2;
