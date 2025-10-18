@@ -8,11 +8,16 @@ import View.Popup.alert;
 import View.Popup.label;
 import View.Popup.scene;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class Controller_ForgotPassword {
@@ -84,4 +89,14 @@ public class Controller_ForgotPassword {
         else if(mode == 2) label.ERROR(Label_MatKhauLoi,"Mật khẩu phải có ít nhất 1 kí tự in hoa, 1 kí tự thường, 1 số, 1 kí tự đặc biệt!");
         else if(mode == 3) label.ERROR(Label_MatKhauXacThucLoi,"Mật khẩu xác thực không khớp!");
     }
+    // Quay lại màn Login
+    public void handleBack(ActionEvent actionEvent) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Login/Login.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Đăng nhập");
+            stage.show();
+        }
+
 }
