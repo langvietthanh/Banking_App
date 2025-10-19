@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" stylesheets="@ResetPassword.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_Success">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" stylesheets="@ResetPassword.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Login.Controller_Success">
 
     <children>
         <VBox layoutX="50" layoutY="80" spacing="20" style="-fx-alignment: center;" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="80">

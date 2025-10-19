@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox alignment="CENTER" prefHeight="350.0" prefWidth="340.0" spacing="10" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_KeyBoard">
+<VBox alignment="CENTER" prefHeight="350.0" prefWidth="340.0" spacing="10" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.Controller_KeyBoard">
 
       <TextField fx:id="textInput" editable="false" prefHeight="25.0" prefWidth="273.0" />
    <Label fx:id="Label_LoiSoDu" prefHeight="17.0" prefWidth="250.0" textFill="#e11111" />

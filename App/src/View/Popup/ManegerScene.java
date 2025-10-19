@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ManegerScene {
     private Parent root;
@@ -17,11 +18,21 @@ public class ManegerScene {
         this.loader = null;
     }
 
-    public void change(ActionEvent actionEvent, String sceneTitle) throws IOException {
+    public void changeWithOldStage(ActionEvent actionEvent, String sceneTitle) throws IOException {
         Scene scene;
         if(root.getScene() == null) scene = new Scene(root);
         else scene = root.getScene();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle(sceneTitle);
+        stage.show();
+    }
+
+    public void changeWithNewStage(String sceneTitle) throws IOException {
+        Scene scene;
+        if(root.getScene() == null) scene = new Scene(root);
+        else scene = root.getScene();
+        Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle(sceneTitle);
         stage.show();
@@ -56,6 +67,10 @@ public class ManegerScene {
             Parent root = loader.load();
             setRoot(root);
         }
+    }
+
+    public <T>  T getControllerOfLoader(){
+        return loader.getController();
     }
 
 }

@@ -1,12 +1,12 @@
 package Model;
 
-import Control.Controller_Register_Account;
+import Control.Login.Controller_Register_Account;
+import DAO.NguoiDungDAO;
 import DAO.TaiKhoanDAO;
 import View.Popup.label;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
-
-import static Control.Controller_Login.taiKhoanDAO;
 
 public class TaiKhoan {
     private String cccd;
@@ -15,6 +15,7 @@ public class TaiKhoan {
     private String loaiTaiKhoan;
     private long soDu;
     private LocalDateTime ngayTao;
+    private NguoiDung nguoiDung;
 
     private Controller_Register_Account controllerRegisterAccount;
 
@@ -87,6 +88,17 @@ public class TaiKhoan {
         this.controllerRegisterAccount = controllerRegisterAccount;
     }
 
+    @Override
+    public String toString() {
+        NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+        try {
+            NguoiDung nguoiDung = nguoiDungDAO.findByAttribute("CCCD",getCccd());
+            return soTaiKhoan +" "+nguoiDung.getHoTen();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     //    -------------- Kiểm Tra Lỗi cho phần đăng kí------------
     public boolean checkThongTin(String stk,String pin){
         return checkThongTinSTK(stk) & checkThongTinPIN(pin);
@@ -140,5 +152,8 @@ public class TaiKhoan {
         }
         controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(false);
       return true;
+    }
+    public boolean kiemTraSoTaiKhoan(String soTaiKhoan){
+        return soTaiKhoan.equals(this.soTaiKhoan);
     }
 }

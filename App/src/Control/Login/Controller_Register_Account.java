@@ -1,4 +1,4 @@
-package Control;
+package Control.Login;
 
 import DAO.TaiKhoanDAO;
 import Model.SpareKey;
@@ -23,7 +23,7 @@ public class Controller_Register_Account {
 
     private final TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
     private final TaiKhoan taiKhoan = new TaiKhoan();
-    private ManegerScene scene;
+    private final ManegerScene manegerScene = new ManegerScene();
 
     public void handleRegister(ActionEvent actionEvent ) throws IOException, SQLException{
 
@@ -38,8 +38,8 @@ public class Controller_Register_Account {
         taiKhoan.setMaPIN(pin);
         taiKhoan.setCccd(spareKey.getCccd());
         taiKhoanDAO.create(taiKhoan);
-        scene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Success.fxml")));
-        scene.change(actionEvent,"Thông báo");
+        manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Success.fxml")));
+        manegerScene.changeWithOldStage(actionEvent,"Thông báo");
 
     }
     public PasswordField getPIN2() {

@@ -1,4 +1,4 @@
-package Control;
+package Control.Login;
 
 import Model.NguoiDung;
 import Model.SpareKey;
@@ -79,7 +79,7 @@ public class Controller_Register {
         Controller_Register_Account controllerRegisterAccount = loader.getController();
         controllerRegisterAccount.setSpareKey(spareKey);
 
-//        scene.change(actionEvent,"/View/RegisterBankAccount.fxml","Banking App");
+//        scene.changeWithOldStage(actionEvent,"/View/RegisterBankAccount.fxml","Banking App");
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

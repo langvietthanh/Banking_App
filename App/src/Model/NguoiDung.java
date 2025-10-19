@@ -1,6 +1,6 @@
 package Model;
 
-import Control.Controller_Register;
+import Control.Login.Controller_Register;
 import DAO.NguoiDungDAO;
 
 import java.time.LocalDate;

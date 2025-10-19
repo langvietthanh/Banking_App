@@ -1,10 +1,12 @@
-package Control;
+package Control.Main;
 
-import DAO.GiaoDIchDAO;
+import DAO.GiaoDichDAO;
+import DAO.NguoiDungDAO;
 import DAO.OTPDAO;
 import DAO.TaiKhoanDAO;
 import Model.BaoMat;
 import Model.GiaoDich;
+import Model.NguoiDung;
 import Model.TaiKhoan;
 import View.Popup.alert;
 import View.Popup.label;
@@ -23,7 +25,8 @@ import java.time.LocalDateTime;
 public class Controller_Transaction {
     //DAO=====================================================================================//
     private final TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
-    private final GiaoDIchDAO giaoDichDAO = new GiaoDIchDAO();
+    private final GiaoDichDAO giaoDichDAO = new GiaoDichDAO();
+    private final NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
     private final OTPDAO OtpDAO = new OTPDAO();
 
     //Attribute===============================================================================//
@@ -55,13 +58,24 @@ public class Controller_Transaction {
         int mode = GiaoDich.kiemTraNguonVaDich(taiKhoanNguon.getSoTaiKhoan(), soTKDich);
         if(mode == 0) {
             setTaiKhoanDich(taiKhoanDAO.findByAttribute("SotaiKhoan",soTKDich));
-            nhapSoTien();
-            if (controller_KeyBoard.getFlag()){
-                manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/VerifyPIN.fxml")));
-                manegerScene.change(actionEvent, "Xác thực mã PIN");
-            }
+            NguoiDung nguoiDung = nguoiDungDAO.findByAttribute("CCCD",taiKhoanDich.getCccd());
+            Label_HienTenTaiKhoanDich.setText(nguoiDung.getHoTen());
+//            nhapSoTien();
+//            if (controller_KeyBoard.getFlag()){
+//                manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/VerifyPIN.fxml")));
+//                manegerScene.changeWithOldStage(actionEvent, "Xác thực mã PIN");
+//            }
         }
+
         else xuatThongBaoLoiTKDich(mode);
+    }
+
+    public void handleChuyenTien(ActionEvent actionEvent) throws IOException, InterruptedException {
+        nhapSoTien();
+        if (controller_KeyBoard.getFlag()){
+            manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/VerifyPIN.fxml")));
+            manegerScene.changeWithOldStage(actionEvent, "Xác thực mã PIN");
+        }
     }
 
     public void handleXacThucMaPIN(ActionEvent actionEvent) throws Exception {
@@ -79,7 +93,7 @@ public class Controller_Transaction {
 
             alert.INFORMATION("Mã OTP","Mã OTP của bạn là "+OTP);
             manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/VerifyOTPTransaction.fxml")));
-            manegerScene.change(actionEvent,"Xác thực OTP");
+            manegerScene.changeWithOldStage(actionEvent,"Xác thực OTP");
 
         }
         else {
@@ -100,7 +114,7 @@ public class Controller_Transaction {
 
     //Phương thức riêng của Controller hiện tại================================================//
 
-    private void nhapSoTien() throws IOException {
+    private void nhapSoTien() throws IOException, InterruptedException {
         FXMLLoader loader = new FXMLLoader(Controller_Transaction.class.getResource("/View/KeyBoard.fxml"));
         Scene scene = new Scene(loader.load());
         Stage stage = new Stage();
@@ -120,10 +134,11 @@ public class Controller_Transaction {
 
         if(alert.INFORMATION("Giao dịch", "Giao dịch thành công") != null){
             manegerScene.setLoader(new  FXMLLoader(getClass().getResource("/View/Main/DashBoard.fxml")));
-            controller_DashBoard = manegerScene.getLoader().getController();
+            controller_DashBoard = manegerScene.getControllerOfLoader();
             controller_DashBoard.setTaiKhoan(taiKhoanNguon);
+            controller_DashBoard.setSoDienThoai(soDienThoai);
             controller_DashBoard.reload();
-            manegerScene.change(actionEvent,"DashBoard");
+            manegerScene.changeWithOldStage(actionEvent,"DashBoard");
         }
     }
 
@@ -153,4 +168,6 @@ public class Controller_Transaction {
     public void setSoDienThoai(String sdt) {
         soDienThoai = sdt;
     }
+
+
 }
