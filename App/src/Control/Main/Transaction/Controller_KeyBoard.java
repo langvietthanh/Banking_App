@@ -1,4 +1,4 @@
-package Control.Main;
+package Control.Main.Transaction;
 
 import Model.TaiKhoan;
 import View.Popup.alert;

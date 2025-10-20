@@ -1,4 +1,4 @@
-package Control.Main;
+package Control.Main.History;
 
 import DAO.GiaoDichDAO;
 import Model.GiaoDichTaiKhoanNguon;
@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Controller_History {
 

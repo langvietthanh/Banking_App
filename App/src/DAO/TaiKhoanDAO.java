@@ -51,7 +51,22 @@ public class TaiKhoanDAO implements interfaceDAO<TaiKhoan> {
         }
         JDBCUtil.disconnect(con);
     }
-
+    public void updateAttribute(String attribute,String value,String key){
+        Connection con = JDBCUtil.getConnection();
+        String sql = "UPDATE TaiKhoan " +
+                "SET "+attribute+" = ?"+
+                "WHERE cccd = ?;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,value);
+            ps.setString(2,key);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        JDBCUtil.disconnect(con);
+    }
     @Override
     public TaiKhoan findByAttribute(String attribute, String key) throws SQLException {
         Connection con = JDBCUtil.getConnection();
@@ -91,7 +106,24 @@ public class TaiKhoanDAO implements interfaceDAO<TaiKhoan> {
         JDBCUtil.disconnect(con);
         return exist;
     }
-
+    public String findAttributeByCCCD(String attribute,String key) {
+        Connection con = JDBCUtil.getConnection();
+        String sql = "SELECT " + attribute + " FROM taikhoan WHERE CCCD = ?;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, key);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString(attribute);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        JDBCUtil.disconnect(con);
+        return "";
+    }
     public static void congTienTaiKhoan(double soTien, String soTaiKhoan) throws SQLException {
         Connection con = JDBCUtil.getConnection();
         String sql = "update taikhoan set sodu = sodu + ? where sotaiKhoan = ?;";

@@ -1,5 +1,6 @@
-package Control.Main;
+package Control.Main.Transaction;
 
+import Control.Main.Controller_DashBoard;
 import DAO.GiaoDichDAO;
 import DAO.NguoiDungDAO;
 import DAO.OTPDAO;
@@ -37,7 +38,7 @@ public class Controller_Transaction {
 
     //Controller===============================================================================//
     private Controller_KeyBoard  controller_KeyBoard;
-    private Controller_DashBoard  controller_DashBoard;
+    private Controller_DashBoard controller_DashBoard;
     private final ManegerScene manegerScene = new ManegerScene();
 
     //FXML===============================================================================//
@@ -73,7 +74,7 @@ public class Controller_Transaction {
     public void handleChuyenTien(ActionEvent actionEvent) throws IOException, InterruptedException {
         nhapSoTien();
         if (controller_KeyBoard.getFlag()){
-            manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/VerifyPIN.fxml")));
+            manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/Transaction/VerifyPIN.fxml")));
             manegerScene.changeWithOldStage(actionEvent, "Xác thực mã PIN");
         }
     }
@@ -92,7 +93,7 @@ public class Controller_Transaction {
             OtpDAO.saveOtp(soDienThoai,hashed_OTP,thoiGianHetHan);
 
             alert.INFORMATION("Mã OTP","Mã OTP của bạn là "+OTP);
-            manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/VerifyOTPTransaction.fxml")));
+            manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/Transaction/VerifyOTPTransaction.fxml")));
             manegerScene.changeWithOldStage(actionEvent,"Xác thực OTP");
 
         }
@@ -115,7 +116,7 @@ public class Controller_Transaction {
     //Phương thức riêng của Controller hiện tại================================================//
 
     private void nhapSoTien() throws IOException, InterruptedException {
-        FXMLLoader loader = new FXMLLoader(Controller_Transaction.class.getResource("/View/KeyBoard.fxml"));
+        FXMLLoader loader = new FXMLLoader(Controller_Transaction.class.getResource("/View/Main/Transaction/KeyBoard.fxml"));
         Scene scene = new Scene(loader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
