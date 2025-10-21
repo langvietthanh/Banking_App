@@ -1,0 +1,43 @@
+/* --- Nền xanh lá nhẹ dịu --- */
+.pin-pane {
+    -fx-background-color: linear-gradient(to bottom right, #d5f5e3, #a9dfbf);
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+}
+
+/* --- Tiêu đề chính --- */
+.pin-title {
+    -fx-text-fill: #1e8449;
+    -fx-font-weight: bold;
+}
+
+/* --- Nhãn “PIN” --- */
+.pin-label {
+    -fx-text-fill: #145a32;
+}
+
+/* --- Ô nhập PIN --- */
+.pin-input {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #27ae60;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-prompt-text-fill: #7f8c8d;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.3, 0, 1);
+}
+
+/* --- Nút xác thực, bo tròn, giống Transaction --- */
+.main-button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 6, 0.4, 0, 2);
+}
+
+.main-button:hover {
+    -fx-background-color: #1d8348;
+}

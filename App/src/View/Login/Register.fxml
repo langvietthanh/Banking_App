@@ -108,7 +108,7 @@
         </GridPane>
       <Text layoutX="209.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tạo Tài Khoản">
          <font>
-            <Font name="Constantia" size="38.0" />
+            <Font name="Constantia Bold" size="38.0" />
          </font>
       </Text>
       <ImageView fitHeight="111.0" fitWidth="151.0" layoutX="62.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
