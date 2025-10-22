@@ -1,6 +1,8 @@
 package Control.Login;
 
+import DAO.NguoiDungDAO;
 import DAO.TaiKhoanDAO;
+import Model.NguoiDung;
 import Model.SpareKey;
 import Model.TaiKhoan;
 import View.Popup.ManegerScene;
@@ -19,11 +21,15 @@ public class Controller_Register_Account {
     @FXML private Label errorSoTaiKhoan;
     @FXML private Label errorPIN;
     @FXML private Label lblThongBao;
-    private SpareKey spareKey ;
 
     private final TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
     private final TaiKhoan taiKhoan = new TaiKhoan();
+    private final NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
     private final ManegerScene manegerScene = new ManegerScene();
+    private NguoiDung  nguoiDung;
+
+    private ManegerScene manegerSubScene;
+    private Controller_Success controller_Success;
 
     public void handleRegister(ActionEvent actionEvent ) throws IOException, SQLException{
 
@@ -36,12 +42,20 @@ public class Controller_Register_Account {
 
         taiKhoan.setSoTaiKhoan(stk);
         taiKhoan.setMaPIN(pin);
-        taiKhoan.setCccd(spareKey.getCccd());
+        taiKhoan.setCccd(nguoiDung.getCccd());
         taiKhoanDAO.create(taiKhoan);
-        manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Success.fxml")));
-        manegerScene.changeWithOldStage(actionEvent,"Thông báo");
+        nguoiDungDAO.create(nguoiDung);
 
+        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Success.fxml")));
+        manegerSubScene.changeWithOldStage(actionEvent,"Thành công");
     }
+
+
+    public void handleBack(ActionEvent actionEvent) throws IOException {
+        manegerSubScene.changeWithOldStage(actionEvent,"Đăng kí thông tin");
+    }
+
+
     public PasswordField getPIN2() {
         return PIN2;
     }
@@ -54,7 +68,19 @@ public class Controller_Register_Account {
         return errorPIN;
     }
 
-    public void setSpareKey(SpareKey spareKey) {
-        this.spareKey = spareKey;
+    public void setNguoiDung(NguoiDung nguoiDung) {
+        this.nguoiDung = nguoiDung;
+    }
+
+    public void setController_Success() {
+        this.controller_Success = manegerSubScene.getControllerOfLoader();
+    }
+
+    public void setManegerSubScene(ManegerScene manegerSubScene) {
+        this.manegerSubScene = manegerSubScene;
+    }
+
+    public void setManegerMainScene(ManegerScene manegerSubScene) {
+
     }
 }

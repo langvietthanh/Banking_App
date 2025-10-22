@@ -18,51 +18,53 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class Controller_DashBoard  {
-    //DAO===============================================================================//
+    //DAO=============================================================================================================//
     private final NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 
-    //Attribute===============================================================================//
+    //Attribute=======================================================================================================//
     private TaiKhoan taiKhoan;
     private SpareKey spareKey = new SpareKey();
     private String soDienThoai;
     private ObservableList<GiaoDichTaiKhoanNguon> tatCaGiaoDich;
 
-    //Controller and scene===============================================================================//
-    private final ManegerScene manegerScene = new ManegerScene();
+    //Controller and scene============================================================================================//
+    private ManegerScene manegerMainScene;
+    private ManegerScene manegerSubScene = new ManegerScene();
     private Controller_Transaction controller_Transaction;
     private Controller_History controller_History;
     private Controller_Setting controller_Setting;
 
-    //FXML component===============================================================================//
+    //FXML component==================================================================================================//
     public Label Label_SoTaiKhoan;
     public Label Label_SoDu;
     public Label Label_TenNguoiDung;
 
-    //Event===============================================================================//
+    //HandleButton===========================================================================================================//
     public void handleChuyenTien(ActionEvent actionEvent) throws IOException {
-        manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/Transaction/Transaction.fxml")));
+        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/Transaction/Transaction.fxml")));
         truyenDuLieuTransaction();
-        manegerScene.changeWithOldStage(actionEvent, "Giao dịch");
+        manegerSubScene.changeWithOldStage(actionEvent, "Giao dịch");
     }
 
     public void handleLichSu(ActionEvent actionEvent) throws IOException, SQLException {
-        manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/History/History.fxml")));
+        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/History/History.fxml")));
         truyenDuLieuHistory();
-        manegerScene.changeWithOldStage(actionEvent,"Lịch sử giao dịch");
+        manegerSubScene.changeWithOldStage(actionEvent,"Lịch sử giao dịch");
     }
 
-    public void handleCaiDat(ActionEvent actionEvent) throws IOException, SQLException {
-        manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/Setting/Setting.fxml")));
+    public void handleCaiDat(ActionEvent actionEvent) throws IOException {
+        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/Setting/Setting.fxml")));
         truyenDuLieuSetting();
-        manegerScene.changeWithOldStage(actionEvent,"Setting");
+        manegerSubScene.changeWithOldStage(actionEvent,"Setting");
     }
 
-    //Truyền data cho controller con===============================================================================//
-
+    //Truyền data============================================================================//
     private void truyenDuLieuTransaction() throws IOException {
         setController_Transaction();
         controller_Transaction.setTaiKhoanNguon(taiKhoan);
         controller_Transaction.setSoDienThoai(soDienThoai);
+        controller_Transaction.setManegerMainScene(manegerSubScene);
+        controller_Transaction.setManegerSubScene(manegerMainScene);
     }
 
     private void truyenDuLieuHistory() throws SQLException {
@@ -76,10 +78,11 @@ public class Controller_DashBoard  {
         setController_Setting();
         spareKey.setCccd(taiKhoan.getCccd());
         controller_Setting.setSpareKey(spareKey);
+        controller_Setting.setManegerMainScene(manegerSubScene);
+        controller_Setting.setManegerSubScene(manegerMainScene);
     }
 
-    //Phương thức riêng của Controller hiện tại================================================//
-
+    //Phương thức riêng của Controller hiện tại=======================================================================//
     public void reload() throws SQLException {
         String soTaiKhoan = this.taiKhoan.getSoTaiKhoan();
         String soDu = String.valueOf(Math.round(this.taiKhoan.getSoDu()));
@@ -89,20 +92,7 @@ public class Controller_DashBoard  {
         Label_TenNguoiDung.setText("Xin chào " + nguoiDung.getHoTen());
     }
 
-    public void setController_Transaction() throws IOException {
-        this.controller_Transaction = manegerScene.getControllerOfLoader();
-    }
-
-    public void setController_History() {
-        this.controller_History = manegerScene.getControllerOfLoader();
-    }
-
-    public void setController_Setting() throws IOException {
-        this.controller_Setting = manegerScene.getControllerOfLoader();
-    }
-
-    // Data lấy từ Controller trước đấy (Login)==========================================================//
-
+    // Setter attribute===============================================================================================//
     public void setTaiKhoan(TaiKhoan taiKhoan) {
         this.taiKhoan = taiKhoan;
     }
@@ -115,4 +105,23 @@ public class Controller_DashBoard  {
     public void setTatCaGiaoDich(ObservableList<GiaoDichTaiKhoanNguon> tatCaGiaoDich) {
         this.tatCaGiaoDich = tatCaGiaoDich;
     }
+
+    public void setManegerMainScene(ManegerScene manegerMainScene) {
+        this.manegerMainScene = manegerMainScene;
+    }
+
+    // Setter controller==============================================================================================//
+    public void setController_Transaction() throws IOException {
+        this.controller_Transaction = manegerSubScene.getControllerOfLoader();
+    }
+
+    public void setController_History() {
+        this.controller_History = manegerSubScene.getControllerOfLoader();
+    }
+
+    public void setController_Setting() throws IOException {
+        this.controller_Setting = manegerSubScene.getControllerOfLoader();
+    }
+
+
 }

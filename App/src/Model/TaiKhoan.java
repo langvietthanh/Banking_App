@@ -106,15 +106,15 @@ public class TaiKhoan {
     private boolean checkThongTinSTK(String stk){
 
         if (stk.trim().isEmpty()){
-            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui Lòng nhập số tài khoản!");
+            label.MESS(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui Lòng nhập số tài khoản!");
             return false;
         }
         if (stk.trim().length()<10||stk.trim().length()>14){
-            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
+            label.MESS(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
             return false;
         }
         if (!stk.matches("[0-9]+")){
-            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
+            label.MESS(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
             return false;
         }
         controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(false);

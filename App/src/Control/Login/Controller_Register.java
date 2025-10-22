@@ -2,24 +2,32 @@ package Control.Login;
 
 import Model.NguoiDung;
 import Model.SpareKey;
+import View.Popup.ManegerScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import DAO.NguoiDungDAO;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.lang.String;
 import java.time.LocalDateTime;
 
 
 public class Controller_Register {
+
+
+    //Attribute===============================================================================//
+    private final NguoiDung nd = new NguoiDung();
+    private final SpareKey spareKey = new SpareKey();
+
+    //Controller and scene===============================================================================//
+    private Controller_Register_Account controller_Register_Account;
+    private ManegerScene manegerMainScene ;
+    private ManegerScene manegerSubScene;
+
+    //FXML component===============================================================================//
     @FXML private TextField textField_hoten;
     @FXML private TextField textField_cccd;
     @FXML private TextField textField_sdt;
@@ -29,7 +37,6 @@ public class Controller_Register {
     @FXML private TextField textField_diaChi;
     @FXML private DatePicker datePicker_ngaySinh;
     @FXML private DatePicker datePicker_hanCCCD;
-
     @FXML private Label errorHoTen;
     @FXML private Label errorCCCD;
     @FXML private Label errorSDT;
@@ -40,13 +47,7 @@ public class Controller_Register {
     @FXML private Label errorNgaySinh;
     @FXML private Label errorHanCCCD;
 
-    private final SpareKey spareKey = new SpareKey();
-    private final NguoiDungDAO ndd = new NguoiDungDAO();
-    private final NguoiDung nd = new NguoiDung();
-
-
-    public void handleRegister(ActionEvent actionEvent ) throws IOException, SQLException {
-
+    public void handleRegister(ActionEvent actionEvent ) throws IOException {
         nd.setControllerRegister(this);
         String hoTen = textField_hoten.getText();
         String cccd = textField_cccd.getText();
@@ -71,30 +72,21 @@ public class Controller_Register {
         nd.setNgayDangKi(LocalDateTime.now());
         spareKey.setCccd(cccd);
 
-        ndd.create(nd);
-//        cái này dùng để lưu cccd là khoá ngoại cho tài khoản ngân hàng----------
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login/RegisterBankAccount.fxml"));
-        Parent root = loader.load();
-
-        Controller_Register_Account controllerRegisterAccount = loader.getController();
-        controllerRegisterAccount.setSpareKey(spareKey);
-
-//        scene.changeWithOldStage(actionEvent,"/View/RegisterBankAccount.fxml","Banking App");
-
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.setTitle("Banking App");
-        stage.show();
+        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/RegisterBankAccount.fxml")));
+        truyenDuLieu_Register_Account();
+        manegerSubScene.changeWithOldStage(actionEvent,"Đăng kí tài khoản");
     }
-     // Quay lại màn Login
+
+    private void truyenDuLieu_Register_Account() {
+        setController_Register_Account();
+        controller_Register_Account.setManegerMainScene(manegerSubScene);
+        controller_Register_Account.setManegerSubScene(manegerMainScene);
+        controller_Register_Account.setNguoiDung(nd);
+    }
+
+    // Quay lại màn Login
     public void handleBack(ActionEvent actionEvent) throws IOException {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/Login/Login.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Đăng nhập");
-            stage.show();
+            manegerSubScene.changeWithOldStage(actionEvent,"Login");
         }
 
     public TextField getTextField_mk2() {
@@ -135,6 +127,18 @@ public class Controller_Register {
 
     public Label getErrorHanCCCD() {
         return errorHanCCCD;
+    }
+
+    public void setController_Register_Account() {
+        this.controller_Register_Account = manegerSubScene.getControllerOfLoader();
+    }
+
+    public void setManegerMainScene(ManegerScene manegerMainScene) {
+        this.manegerMainScene = manegerMainScene;
+    }
+
+    public void setManegerSubScene(ManegerScene manegerSubScene) {
+        this.manegerSubScene = manegerSubScene;
     }
 }
 

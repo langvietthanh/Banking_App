@@ -89,9 +89,9 @@ public class Controller_ForgotPassword {
     }
 
     public void xuatThongTinLoi (int mode){
-        if(mode == 1) label.ERROR(Label_MatKhauLoi,"Mật khẩu tối thiểu 8 kí tự!");
-        else if(mode == 2) label.ERROR(Label_MatKhauLoi,"Mật khẩu phải có ít nhất 1 kí tự in hoa, 1 kí tự thường, 1 số, 1 kí tự đặc biệt!");
-        else if(mode == 3) label.ERROR(Label_MatKhauXacThucLoi,"Mật khẩu xác thực không khớp!");
+        if(mode == 1) label.MESS(Label_MatKhauLoi,"Mật khẩu tối thiểu 8 kí tự!");
+        else if(mode == 2) label.MESS(Label_MatKhauLoi,"Mật khẩu phải có ít nhất 1 kí tự in hoa, 1 kí tự thường, 1 số, 1 kí tự đặc biệt!");
+        else if(mode == 3) label.MESS(Label_MatKhauXacThucLoi,"Mật khẩu xác thực không khớp!");
     }
     // Quay lại màn Login
     public void handleBack(ActionEvent actionEvent) throws IOException {

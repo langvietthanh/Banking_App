@@ -169,8 +169,6 @@ public class NguoiDung {
         if (hoTen.trim().isEmpty()) {
             controllerRegister.getErrorHoTen().setText("Vui lòng nhập họ và tên!");
             controllerRegister.getErrorHoTen().setVisible(true);
-            controllerRegister.getErrorHoTen().setText("Vui lòng nhập họ và tên!");
-            controllerRegister.getErrorHoTen().setVisible(true);
             return false;
         } else {
             controllerRegister.getErrorHoTen().setVisible(false);

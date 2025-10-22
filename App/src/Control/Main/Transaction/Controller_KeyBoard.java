@@ -1,6 +1,7 @@
 package Control.Main.Transaction;
 
 import Model.TaiKhoan;
+import View.Popup.ManegerScene;
 import View.Popup.alert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,17 +10,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class Controller_KeyBoard {
+
+    //Controller and Scene============================================================================================//
+    private Controller_Transaction controller_Transaction;
+    private ManegerScene manegerMainScene;
+    private ManegerScene manegerSubScene;
+
+    //Attribute=======================================================================================================//
     public boolean flag = false;
     private TaiKhoan taiKhoanNguon;
+    //FXML============================================================================================================//
     @FXML
     private TextField textInput;
-
-    public Controller_KeyBoard() throws IOException {
-    }
-
     @FXML
     private void handleKeyPress(ActionEvent actionEvent) {
         Button btn = (Button) actionEvent.getSource();
@@ -35,7 +38,7 @@ public class Controller_KeyBoard {
                 break;
             case "Enter":
                 if (!text.isEmpty()) {
-                    int modeSoDu = taiKhoanNguon.kiemTraSoDu(getValue());
+                    int modeSoDu = taiKhoanNguon.kiemTraSoDu(getValueIsDouble());
                     if (modeSoDu == 0) {
                         flag = true;
                         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -59,8 +62,7 @@ public class Controller_KeyBoard {
         chuanHoa();
     }
 
-
-
+    //Phương thức riêng của Controller hiện tại=======================================================================//
     public void chuanHoa() {
         // Xóa dấu chấm cũ
         String input = textInput.getText();
@@ -82,17 +84,16 @@ public class Controller_KeyBoard {
         textInput.setText(result.reverse().toString());
     }
 
-    public double getValue() {
+    public double getValueIsDouble() {
         String raw = textInput.getText();
         if (raw.isEmpty()) return 0.0;
         // Loại bỏ tất cả dấu '.' để tránh lỗi "multiple points"
         raw = raw.replaceAll("\\.", "");
         return Double.parseDouble(raw);
     }
-//123456789456
 
-    public void setTaiKhoanNguon(TaiKhoan taiKhoanNguon) {
-        this.taiKhoanNguon = taiKhoanNguon;
+    public String getValueIsString() {
+        return textInput.getText();
     }
 
 
@@ -112,5 +113,17 @@ public class Controller_KeyBoard {
 
     public boolean getFlag() {
         return flag;
+    }
+
+    public void setTaiKhoanNguon(TaiKhoan taiKhoanNguon) {
+        this.taiKhoanNguon = taiKhoanNguon;
+    }
+
+    public void setManegerMainScene(ManegerScene manegerMainScene) {
+        this.manegerMainScene = manegerMainScene;
+    }
+
+    public void setManegerSubScene(ManegerScene manegerSubScene) {
+        this.manegerSubScene = manegerSubScene;
     }
 }
