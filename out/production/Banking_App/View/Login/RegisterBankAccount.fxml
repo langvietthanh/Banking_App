@@ -44,10 +44,10 @@
             <!-- Thông báo chung -->
             <Label fx:id="lblThongBao" alignment="CENTER" prefWidth="300" style="-fx-text-fill: green; -fx-font-size: 14px; -fx-font-weight: bold;" visible="false" />
         </VBox>
-      <Button minWidth="41.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="47.0" prefWidth="51.0" text="◄">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
+        <Button fx:id="Button_Back" mnemonicParsing="false" onAction="#handleBack" prefHeight="40.0" prefWidth="53.0" text="◄">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

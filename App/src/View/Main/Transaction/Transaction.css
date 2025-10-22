@@ -1,0 +1,66 @@
+/* Toàn bộ nền trang */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #e8f8e8, #d6f5d6);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+/* Label chung */
+.label {
+    -fx-text-fill: #2e7d32; /* xanh lá dịu */
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+}
+
+/* Label cảnh báo / lỗi */
+.label#error,
+#Label_TaiKhoanKhongTonTai,
+#Label_TaiKhoanDichLoi {
+    -fx-text-fill: #d32f2f; /* đỏ nhẹ, rõ ràng nhưng không gắt */
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+/* TextField (ô nhập) */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-color: #81c784;
+    -fx-border-radius: 8;
+    -fx-border-width: 1.5;
+    -fx-padding: 5 10 5 10;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI";
+}
+
+.text-field:focused {
+    -fx-border-color: #43a047;
+    -fx-effect: dropshadow(three-pass-box, rgba(76,175,80,0.3), 6, 0, 0, 0);
+}
+
+/* Nút bấm */
+.button {
+    -fx-background-color: #27ae60;
+        -fx-text-fill: white;
+        -fx-background-radius: 25;
+        -fx-border-radius: 25;
+        -fx-cursor: hand;
+        -fx-font-size: 14px;
+        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 6, 0.4, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #81c784, #43a047);
+}
+
+.button:pressed {
+    -fx-background-color: #2e7d32;
+    -fx-translate-y: 1;
+}
+
+/* Label hiển thị tên tài khoản đích */
+#Label_HienTenTaiKhoanDich {
+    -fx-text-fill: #1b5e20;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI Semibold";
+}

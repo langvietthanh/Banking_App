@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.History.Controller_History">
+<BorderPane prefHeight="600" prefWidth="800" stylesheets="@History.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.History.Controller_History">
 
     <!-- Tiêu đề -->
     <top>
@@ -30,6 +30,7 @@
             </padding>
 
             <HBox spacing="10">
+            <Button mnemonicParsing="false" text="X" />
                 <TextField fx:id="txtSearch" promptText="Tìm kiếm giao dịch..." HBox.hgrow="ALWAYS" />
                 <ComboBox fx:id="ComboBox_LoaiGiaoDIch" prefWidth="150" promptText="Loại giao dịch" />
                 <ComboBox fx:id="ComboBox_ThoiGian" prefWidth="150" promptText="Thời gian" />
@@ -43,7 +44,7 @@
                     <TableColumn fx:id="Column_LoaiGiaoDich" prefWidth="110.0" text="Loại giao dịch" />
                     <TableColumn fx:id="Column_TaiKhoanDich" prefWidth="227.0" text="Tài khoản đích" />
                     <TableColumn fx:id="Column_SoTien" prefWidth="164.0" text="Số tiền" />
-               <TableColumn fx:id="Column_NoiDung" prefWidth="129.0" text="Nội dung" />
+                    <TableColumn fx:id="Column_NoiDung" prefWidth="129.0" text="Nội dung" />
                 </columns>
             </TableView>
 
