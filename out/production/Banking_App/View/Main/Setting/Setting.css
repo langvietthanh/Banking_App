@@ -1,0 +1,52 @@
+/* Toàn bộ nền – xanh lá nhẹ dịu mắt */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #e9f5e9, #d6f0d6, #c2e5c2);
+    -fx-font-family: "Constantia";
+}
+
+/* Tiêu đề */
+.label {
+    -fx-text-fill: #1b4332;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+/* Tất cả các nút chung */
+.button {
+    -fx-background-color: #1976D2; /* Giữ màu gốc nút */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-padding: 8 16 8 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 4, 0, 2, 2);
+}
+
+/* Hiệu ứng hover */
+.button:hover {
+    -fx-background-color: #40916c;
+}
+
+/* Khi nhấn */
+.button:pressed {
+    -fx-background-color: #1b4332;
+}
+
+/* Nút Đăng xuất – màu đỏ riêng */
+#btnDangXuat {
+    -fx-background-color: #D32F2F;
+}
+
+#btnDangXuat:hover {
+    -fx-background-color: #9d0208;
+}
+
+#btnDangXuat:pressed {
+    -fx-background-color: #6a040f;
+}
+
+/* Văn bản trong các nút */
+.button .text {
+    -fx-font-smoothing-type: lcd;
+}

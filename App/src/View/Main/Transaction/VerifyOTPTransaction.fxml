@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="330.0" prefWidth="520.0" styleClass="otp-pane" stylesheets="@VerifyOTPTransaction.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.Transaction.Controller_Transaction">
+<AnchorPane prefHeight="330.0" prefWidth="520.0" styleClass="otp-pane" stylesheets="@VerifyOTPTransaction.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.Transaction.Controller_VerifyOTPTransaction">
 
     <children>
         <!-- Tiêu đề OTP -->

@@ -1,0 +1,47 @@
+/* Nền tổng thể – xanh lá nhẹ nhàng */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #d8f3dc, #b7e4c7, #95d5b2);
+    -fx-font-family: "Constantia";
+}
+
+/* Tiêu đề tên người dùng */
+#Label_TenNguoiDung {
+    -fx-text-fill: #081c15;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+/* Nhãn thông tin */
+.label {
+    -fx-text-fill: #1b4332;
+    -fx-font-size: 16px;
+}
+
+/* Số tài khoản và số dư */
+#Label_SoTaiKhoan, #Label_SoDu {
+    -fx-text-fill: #2d6a4f;
+    -fx-font-weight: bold;
+}
+
+/* Các nút chức năng */
+.button {
+    -fx-background-color: #2d6a4f;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-pref-width: 120px;
+    -fx-pref-height: 40px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 2, 2);
+}
+
+/* Hiệu ứng hover */
+.button:hover {
+    -fx-background-color: #40916c;
+}
+
+/* Hiệu ứng khi nhấn */
+.button:pressed {
+    -fx-background-color: #1b4332;
+}
