@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="480.0" prefWidth="380.0" spacing="20" stylesheets="@KeyBoard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.Transaction.Controller_KeyBoard">
+
+    <!-- Ô nhập số -->
+    <HBox alignment="CENTER" prefWidth="320">
+        <TextField fx:id="textInput" alignment="CENTER_RIGHT" editable="false" prefHeight="42.0" prefWidth="328.0" promptText="Nhập số tiền" styleClass="input-field" />
+    </HBox>
+
+    <!-- Thông báo lỗi -->
+    <Label fx:id="Label_LoiSoDu" styleClass="error-label" textFill="#e74c3c" visible="false" />
+
+    <!-- Lưới bàn phím số -->
+    <GridPane alignment="CENTER" hgap="10" styleClass="keyboard-grid" vgap="10">
+
+        <columnConstraints>
+            <ColumnConstraints percentWidth="33" />
+            <ColumnConstraints percentWidth="33" />
+            <ColumnConstraints percentWidth="33" />
+        </columnConstraints>
+
+        <!-- Hàng 1 -->
+        <Button onAction="#handleKeyPress" text="7" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Button onAction="#handleKeyPress" text="8" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Button onAction="#handleKeyPress" text="9" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+        <!-- Hàng 2 -->
+        <Button onAction="#handleKeyPress" text="4" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Button onAction="#handleKeyPress" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Button onAction="#handleKeyPress" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+        <!-- Hàng 3 -->
+        <Button onAction="#handleKeyPress" text="1" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Button onAction="#handleKeyPress" text="2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button onAction="#handleKeyPress" text="3" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+        <!-- Hàng 4 -->
+        <Button onAction="#handleKeyPress" text="000" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Button onAction="#handleKeyPress" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button onAction="#handleKeyPress" text="←" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+
+    <!-- Nút Enter -->
+    <Button maxWidth="Infinity" onAction="#handleKeyPress" prefHeight="60" prefWidth="260" styleClass="enter-button" text="ENTER" textOverrun="CLIP" wrapText="false" />
+</VBox>
