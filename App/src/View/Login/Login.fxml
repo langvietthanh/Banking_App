@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="471.0" prefWidth="611.0" styleClass="anchor-pane" stylesheets="@Login.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_Login">
+<AnchorPane prefHeight="471.0" prefWidth="611.0" styleClass="anchor-pane" stylesheets="@Login.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Login.Controller_Login">
 
     <!-- Buttons -->
     <Button fx:id="Button_DangNhap" layoutX="204.0" layoutY="324.0" onAction="#handleDangNhap" prefHeight="40.0" prefWidth="130.0" text="Đăng nhập" />

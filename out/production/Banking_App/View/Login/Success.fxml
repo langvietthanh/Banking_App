@@ -2,32 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Control.Controller_Success"
-            prefWidth="400.0" prefHeight="300.0"
-            style="-fx-background-color: linear-gradient(to bottom, #d9f7be, #95de64);">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" stylesheets="@ResetPassword.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Login.Controller_Success">
 
     <children>
-        <VBox spacing="20" layoutX="50" layoutY="80"
-              AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50"
-              AnchorPane.topAnchor="80" AnchorPane.bottomAnchor="50"
-              style="-fx-alignment: center;">
+        <VBox layoutX="50" layoutY="80" spacing="20" style="-fx-alignment: center;" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="80">
 
-            <Label fx:id="lblSuccess"
-                   text="Đăng ký thành công!"
-                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1b4332;"
-                   alignment="CENTER"/>
+            <Label fx:id="lblSuccess" alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1b4332;" text="Đăng ký thành công!">
+            <font>
+               <Font name="Constantia" size="12.0" />
+            </font></Label>
 
-            <Button fx:id="btnLogin"
-                    text="Đăng nhập"
-                    prefWidth="120" prefHeight="35"
-                    style="-fx-background-color: #0078d7; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"
-                    onAction="#handleSuccess"/>
+            <Button fx:id="btnLogin" onAction="#handleSuccess" prefHeight="35" prefWidth="120" style="-fx-background-color: #0078d7; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" text="Đăng nhập" />
         </VBox>
     </children>
 </AnchorPane>

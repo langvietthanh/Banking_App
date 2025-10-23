@@ -26,7 +26,7 @@ public class OTPDAO{
     public boolean verifyOtp(String sdt, String otpHash) throws SQLException {
         deleteExpiredOtps();
         Connection con = JDBCUtil.getConnection();
-        String sql = "SELECT SDT FROM otp_verify WHERE sdt=? AND otp_hash=? AND used=false AND expires_at > ?";
+        String sql = "SELECT SDT FROM otp_verify WHERE sdt=? AND otp_hash=? AND used=false AND expires_at > ? ORDER BY expires_at DESC LIMIT 1";
         PreparedStatement p =  con.prepareStatement(sql);
         p.setString(1, sdt);
         p.setString(2, otpHash);

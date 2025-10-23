@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="500.0" stylesheets="@Register.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_Register_Account">
+<AnchorPane prefHeight="450.0" prefWidth="500.0" stylesheets="@Register.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Login.Controller_Register_Account">
 
     <children>
-        <VBox layoutX="80" layoutY="40" prefHeight="343.0" prefWidth="363.0" spacing="20">
+        <VBox layoutX="80.0" layoutY="40.0" prefHeight="343.0" prefWidth="363.0" spacing="20">
             <Label alignment="CENTER" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #003366;" text="ĐĂNG KÝ TÀI KHOẢN NGÂN HÀNG">
-            <font>
-               <Font name="Constantia" size="12.0" />
-            </font></Label>
+                <font>
+                    <Font name="Constantia Bold" size="12.0" />
+                </font></Label>
 
             <!-- Số tài khoản -->
             <VBox spacing="3">
@@ -44,5 +44,10 @@
             <!-- Thông báo chung -->
             <Label fx:id="lblThongBao" alignment="CENTER" prefWidth="300" style="-fx-text-fill: green; -fx-font-size: 14px; -fx-font-weight: bold;" visible="false" />
         </VBox>
+        <Button fx:id="Button_Back" mnemonicParsing="false" onAction="#handleBack" prefHeight="40.0" prefWidth="53.0" text="◄">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

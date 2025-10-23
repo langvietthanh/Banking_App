@@ -4,16 +4,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< Updated upstream
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Login/ResetPassword.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Controller_DashBoard">
-    <Button layoutX="66.0" layoutY="241.0" onAction="#handleChuyenTien" text="Chuyển Tiền" />
-   <Label layoutX="76.0" layoutY="67.0" text="Số dư" />
-   <Label layoutX="76.0" layoutY="35.0" text="Tên tài khoản" />
-   <Label fx:id="Label_TenTaiKhoan" layoutX="207.0" layoutY="35.0" text="Label" />
-   <Label fx:id="Label_SoDu" layoutX="207.0" layoutY="67.0" text="Label" />
-   <Button layoutX="207.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleLichSu" prefHeight="36.0" prefWidth="99.0" text="Lịch Sử" />
-   <Button layoutX="381.0" layoutY="241.0" mnemonicParsing="false" onAction="#handleCaiDat" prefHeight="36.0" prefWidth="87.0" text="Cài đặt" />
-=======
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
             stylesheets="@DashBoard.css"
             xmlns="http://javafx.com/javafx/25"
@@ -41,5 +31,4 @@
     <Button layoutX="80.0" layoutY="240.0" text="Chuyển tiền" onAction="#handleChuyenTien" />
     <Button layoutX="240.0" layoutY="240.0" text="Lịch sử" onAction="#handleLichSu" />
     <Button layoutX="400.0" layoutY="240.0" text="Cài đặt" onAction="#handleCaiDat" />
->>>>>>> Stashed changes
 </AnchorPane>

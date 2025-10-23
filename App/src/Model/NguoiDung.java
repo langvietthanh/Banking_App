@@ -1,6 +1,6 @@
 package Model;
 
-import Control.Controller_Register;
+import Control.Login.Controller_Register;
 import DAO.NguoiDungDAO;
 
 import java.time.LocalDate;
@@ -167,8 +167,6 @@ public class NguoiDung {
     }
     private boolean checkHoTenEmpty(String hoTen){
         if (hoTen.trim().isEmpty()) {
-            controllerRegister.getErrorHoTen().setText("Vui lòng nhập họ và tên!");
-            controllerRegister.getErrorHoTen().setVisible(true);
             controllerRegister.getErrorHoTen().setText("Vui lòng nhập họ và tên!");
             controllerRegister.getErrorHoTen().setVisible(true);
             return false;

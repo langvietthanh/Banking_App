@@ -1,0 +1,110 @@
+/* ===== Giao diện tổng thể ===== */
+.root, .border-pane {
+    -fx-background-color: #e8f5e9; /* xanh lá nhạt */
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* ===== Tiêu đề ===== */
+.label {
+    -fx-text-fill: #1b4332;
+}
+
+.label:title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1b4332;
+}
+
+/* ===== TextField (tìm kiếm) ===== */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4a7c59;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 10px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #2e7d32;
+    -fx-background-color: #ffffff;
+}
+
+/* ===== ComboBox (lọc giao dịch, thời gian) ===== */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #4a7c59;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 14px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #2e7d32;
+}
+
+/* ===== Nút (Button) ===== */
+.button {
+    -fx-background-color: #4a7c59;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 16px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #2d4a2b;
+    -fx-border-width: 1.5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #5a9169;
+}
+
+.button:pressed {
+    -fx-background-color: #3a6c49;
+}
+
+/* ===== Bảng dữ liệu (TableView) ===== */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #4a7c59;
+    -fx-border-width: 2px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #4a7c59;
+}
+
+.table-view .column-header,
+.table-view .table-column {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+.table-view .cell {
+    -fx-padding: 8px;
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 0 0 1 0;
+    -fx-font-size: 13px;
+}
+
+.table-view .cell:selected {
+    -fx-background-color: #a5d6a7;
+    -fx-text-fill: #000000;
+}
+
+/* ===== Phân trang ===== */
+.hbox {
+    -fx-alignment: center;
+}
+
+.hbox .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1b4332;
+}

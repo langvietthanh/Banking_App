@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="334.0" prefWidth="600.0" stylesheets="@../../Login/ResetPassword.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.Transaction.Controller_Transaction">
+   <children>
+      <TextField fx:id="TextField_TaiKhoanNhanTien" layoutX="207.0" layoutY="66.0" prefHeight="34.0" prefWidth="149.0" promptText="Số tài khoản" />
+      <Label layoutX="69.0" layoutY="73.0" prefHeight="23.0" prefWidth="130.0" text="Số tài khoản">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+       <Button layoutX="437.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleXacNhanTaiKhoanDich" text="Xác nhận" />
+       <Label fx:id="Label_TaiKhoanKhongTonTai" layoutX="181.0" layoutY="183.0" prefHeight="17.0" prefWidth="234.0" visible="false" />
+      <Label layoutX="69.0" layoutY="132.0" prefHeight="50.0" prefWidth="130.0" text="Tên tài khoản">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label_TenTaiKhoan" layoutX="209.0" layoutY="145.0" prefHeight="23.0" prefWidth="217.0" />
+      <Label fx:id="Label_TaiKhoanDichLoi" layoutX="257.0" layoutY="117.0" prefHeight="17.0" prefWidth="200.0" textFill="#f20f0f" />
+      <Button fx:id="Button_XacNhan" disable="true" layoutX="249.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleXacNhan" text="Xác nhận" visible="false" />
+      <Button layoutX="6.0" layoutY="6.0" minWidth="41.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="47.0" prefWidth="51.0" text="◄">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="111.0" layoutY="192.0" prefHeight="50.0" prefWidth="70.0" text="Số tiền">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="437.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleNhapSoTien" text="Nhập số tiền" />
+      <Label fx:id="Label_SoTien" layoutX="207.0" layoutY="199.0" prefHeight="36.0" prefWidth="200.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,20 +1,24 @@
 package Model;
 
-import Control.Controller_Register_Account;
+import Control.Login.Controller_Register_Account;
+import DAO.NguoiDungDAO;
 import DAO.TaiKhoanDAO;
 import View.Popup.label;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class TaiKhoan {
-    private String soTaiKhoan;         // Số tài khoản duy nhất
-    private long soDu;               // Số dư hiện tại
-    private String maPIN;
-    private LocalDateTime ngayTao;   // Ngày tạo tài khoản
     private String cccd;
-//    private String trangThai;          // "HoatDong", "Dong"
+    private String maPIN;
+    private String soTaiKhoan;
+    private String loaiTaiKhoan;
+    private long soDu;
+    private LocalDateTime ngayTao;
+    private NguoiDung nguoiDung;
 
     private Controller_Register_Account controllerRegisterAccount;
+
     private final TaiKhoanDAO tkd =  new TaiKhoanDAO();
     // ----- Constructors -----
     public TaiKhoan() {
@@ -28,6 +32,20 @@ public class TaiKhoan {
         this.ngayTao = ngayTao;
     }
 
+    public TaiKhoan(String cccd, String maPIN, String soTaiKhoan, String loaiTaiKhoan, long soDu, LocalDateTime ngayTao) {
+        this.cccd = cccd;
+        this.maPIN = maPIN;
+        this.soTaiKhoan = soTaiKhoan;
+        this.loaiTaiKhoan = loaiTaiKhoan;
+        this.soDu = soDu;
+        this.ngayTao = ngayTao;
+    }
+
+    public int kiemTraSoDu(double soTienGiaoDich) {
+        if (soDu < soTienGiaoDich) return 1;
+        else if(soTienGiaoDich < soDu && soDu - soTienGiaoDich < 50) return 2;
+        return 0;
+    }
     // ----- Getters & Setters -----
 
     public String getSoTaiKhoan() {
@@ -70,23 +88,33 @@ public class TaiKhoan {
         this.controllerRegisterAccount = controllerRegisterAccount;
     }
 
+    @Override
+    public String toString() {
+        NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+        try {
+            NguoiDung nguoiDung = nguoiDungDAO.findByAttribute("CCCD",getCccd());
+            return soTaiKhoan +" "+nguoiDung.getHoTen();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     //    -------------- Kiểm Tra Lỗi cho phần đăng kí------------
     public boolean checkThongTin(String stk,String pin){
-        if (checkThongTinSTK(stk)&checkThongTinPIN(pin)) return true;
-       return false;
+        return checkThongTinSTK(stk) & checkThongTinPIN(pin);
     }
     private boolean checkThongTinSTK(String stk){
 
         if (stk.trim().isEmpty()){
-            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui Lòng nhập số tài khoản!");
+            label.MESS(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui Lòng nhập số tài khoản!");
             return false;
         }
         if (stk.trim().length()<10||stk.trim().length()>14){
-            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
+            label.MESS(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
             return false;
         }
         if (!stk.matches("[0-9]+")){
-            label.ERROR(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
+            label.MESS(controllerRegisterAccount.getErrorSoTaiKhoan(),"Vui lòng nhập lại số tài khoản!");
             return false;
         }
         controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(false);
@@ -124,5 +152,8 @@ public class TaiKhoan {
         }
         controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(false);
       return true;
+    }
+    public boolean kiemTraSoTaiKhoan(String soTaiKhoan){
+        return soTaiKhoan.equals(this.soTaiKhoan);
     }
 }

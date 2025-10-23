@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="324.0" prefWidth="521.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.Transaction.Controller_VerifyOTPTransaction">
+    <children>
+        <TextField fx:id="TextField_OTP" layoutX="172.0" layoutY="133.0" promptText="OTP" />
+        <Button layoutX="214.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleXacNhanOTP" text="Xác nhận" />
+      <Text layoutX="129.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhập Mã OTP">
+         <font>
+            <Font name="Constantia" size="42.0" />
+         </font>
+      </Text>
+      <Label fx:id="Label_ThoiGianHieuLuc" layoutX="211.0" layoutY="109.0" prefHeight="15.0" prefWidth="99.0" />
+      <Label fx:id="Label_Error" layoutX="200.0" layoutY="176.0" prefHeight="15.0" prefWidth="152.0" />
+      <Label layoutX="194.0" layoutY="86.0" text="Thời gian OTP hết hạn:" />
+      <Button fx:id="Button_GuiLaiOTP" layoutX="397.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleGuiLaiOTP" text="Gửi lại OTP" />
+    </children>
+   <stylesheets>
+      <URL value="@../../Login/ResetPassword.css" />
+      <URL value="@../../Login/background_image.css" />
+   </stylesheets>
+</AnchorPane>

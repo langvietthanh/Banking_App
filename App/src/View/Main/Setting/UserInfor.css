@@ -1,0 +1,58 @@
+/* Nền tổng thể */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #d8f3dc, #b7e4c7, #95d5b2);
+    -fx-font-family: "Constantia";
+}
+
+/* Tiêu đề chính */
+.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #1b4332;
+}
+
+/* Tiêu đề lớn */
+.vbox > .label:first-child {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #081c15;
+    -fx-underline: true;
+}
+
+/* Các nhãn thông tin bên trái (CCCD, Họ tên, ...) */
+.grid-pane .label {
+    -fx-font-size: 16px;
+}
+
+/* Các giá trị hiển thị bên phải */
+#lblCCCD, #lblHoTen, #lblNgaySinh, #lblDiaChi, #lblSDT, #lblEmail, #lblHanCCCD {
+    -fx-text-fill: #2d6a4f;
+    -fx-font-weight: bold;
+}
+
+/* Nút Trở về */
+.button {
+    -fx-background-color: #95d5b2;   /* 🌿 Xanh pastel nhạt hơn (#52b788 → #95d5b2) */
+    -fx-text-fill: #081c15;          /* Đổi text thành xanh đậm để dễ đọc hơn trên nền nhạt */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 2, 2);
+}
+
+/* Hover nút */
+.button:hover {
+    -fx-background-color: #74c69d;   /* Hover đậm hơn một chút */
+    -fx-text-fill: white;
+}
+
+/* Khi nhấn nút */
+.button:pressed {
+    -fx-background-color: #40916c;   /* Đậm rõ khi nhấn */
+    -fx-text-fill: white;
+}
+
+/* Khi nhấn nút */
+.button:pressed {
+    -fx-background-color: #1b4332;  /* Đậm hẳn khi nhấn */
+}
