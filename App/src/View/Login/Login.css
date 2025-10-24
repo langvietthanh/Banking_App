@@ -1,7 +1,7 @@
 
 /* Background màu xanh nhạt  */
 .root {
-    -fx-background-image: url("/View/Image/background_login.jpg");
+    -fx-background-image: url("/View/Image/background-xanh-la-nhat-dep-nhat.jpg");
 -fx-background-size: cover;
 -fx-background-repeat: no-repeat;
 -fx-background-position: center;
@@ -20,14 +20,14 @@
     -fx-vgap: 15px;
 }
 
-/* Styling cho Labels - màu xanh đậm, font đậm */
+/* Styling cho Labels - màu xanh đậm,font đậm */
 .label {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: #2d4a2b;
 }
 
-/* Styling cho TextField - viền đen, nền trắng */
+/* Styling cho TextField - viền đen,nền trắng */
 .text-field {
     -fx-background-color: white;
     -fx-background-radius: 0px;
@@ -46,12 +46,12 @@
     -fx-border-width: 2px;
 }
 
-/* Placeholder text */
+
 .text-field:empty {
     -fx-prompt-text-fill: #888888;
 }
 
-/* Styling cho PasswordField */
+
 .password-field {
     -fx-background-color: white;
     -fx-background-radius: 0px;
@@ -98,7 +98,7 @@
     -fx-background-color: #3a6c49;
 }
 
-/* Button Đăng ký  */
+
 .button-register {
     -fx-background-color: #5a9169;
     -fx-border-color: #4a7c59;
@@ -128,14 +128,14 @@
     -fx-background-color: #8a8a8a;
 }
 
-/* Title Label */
+
 .title-label {
     -fx-font-size: 28px;
     -fx-font-weight: bold;
     -fx-text-fill: #2d4a2b;
 }
 
-/* Error/Warning Label - màu đỏ */
+
 .error-label {
     -fx-text-fill: #c62828;
     -fx-font-size: 13px;
@@ -146,7 +146,7 @@
     -fx-border-width: 1px;
 }
 
-/* Success Label - màu xanh */
+
 .success-label {
     -fx-text-fill: #2e7d32;
     -fx-font-size: 13px;

@@ -9,14 +9,14 @@
 
 <AnchorPane prefHeight="316.0" prefWidth="475.0" stylesheets="@../../Login/ResetPassword.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.Transaction.Controller_VerifyPIN">
    <children>
-      <Button layoutX="174.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleXacThucMaPIN" text="Xác thực" />
+      <Button layoutX="190.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleXacThucMaPIN" text="Xác thực" />
       <Label layoutX="91.0" layoutY="149.0" text="PIN">
          <font>
-            <Font size="20.0" />
+            <Font size="18.0" />
          </font></Label>
-      <Text layoutX="108.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhập Mã PIN">
+      <Text layoutX="131.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhập Mã PIN">
          <font>
-            <Font name="Constantia" size="43.0" />
+            <Font name="Constantia" size="36.0" />
          </font>
       </Text>
       <PasswordField fx:id="PasswordField_PIN" layoutX="138.0" layoutY="140.0" promptText="*  *  *  *  *  *">
@@ -24,7 +24,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </PasswordField>
-      <Button layoutX="14.0" layoutY="14.0" minWidth="41.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="47.0" prefWidth="51.0" text="◄">
+      <Button minWidth="41.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="47.0" prefWidth="51.0" text="◄">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

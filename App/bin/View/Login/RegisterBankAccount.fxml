@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="500.0" stylesheets="@Register.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Login.Controller_Register_Account">
+<AnchorPane prefHeight="428.0" prefWidth="500.0" stylesheets="@Register.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Login.Controller_Register_Account">
 
     <children>
         <VBox layoutX="80.0" layoutY="40.0" prefHeight="343.0" prefWidth="363.0" spacing="20">
@@ -38,9 +38,6 @@
                 <Label fx:id="errorPIN2" textFill="red" visible="false" />
             </VBox>
 
-            <!-- Nút đăng ký -->
-            <Button fx:id="btnDangKy" alignment="CENTER" onAction="#handleRegister" prefHeight="35" prefWidth="150" style="-fx-background-color: #0078d7; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" stylesheets="@ResetPassword.css" text="Đăng ký" />
-
             <!-- Thông báo chung -->
             <Label fx:id="lblThongBao" alignment="CENTER" prefWidth="300" style="-fx-text-fill: green; -fx-font-size: 14px; -fx-font-weight: bold;" visible="false" />
         </VBox>
@@ -49,5 +46,8 @@
                 <Font name="System Bold" size="22.0" />
             </font>
         </Button>
+
+         <!-- Nút đăng ký -->
+         <Button fx:id="btnDangKy" alignment="CENTER" layoutX="187.0" layoutY="365.0" onAction="#handleRegister" prefHeight="35" prefWidth="150" style="-fx-background-color: #0078d7; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;" stylesheets="@ResetPassword.css" text="Đăng ký" />
     </children>
 </AnchorPane>

@@ -9,9 +9,9 @@
 
 
     <!-- Tiêu đề -->
-    <Label layoutX="202.0" layoutY="32.0" prefHeight="33.0" prefWidth="214.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="CÀI ĐẶT TÀI KHOẢN">
+    <Label layoutX="193.0" layoutY="29.0" prefHeight="33.0" prefWidth="214.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="CÀI ĐẶT TÀI KHOẢN">
       <font>
-         <Font name="Constantia Bold" size="39.0" />
+         <Font name="Constantia Bold" size="40.0" />
       </font></Label>
 
     <!-- Nút xem thông tin -->
