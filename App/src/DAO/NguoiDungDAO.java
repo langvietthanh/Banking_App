@@ -7,7 +7,6 @@ import java.sql.*;
 import java.time.LocalDate;
 
 public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
-    public NguoiDungDAO() {}
 
     @Override
     public void create(NguoiDung nd) {
@@ -122,20 +121,5 @@ public class NguoiDungDAO implements interfaceDAO<NguoiDung>{
         JDBCUtil.disconnect(con);
         return rows > 0;
     }
-    public void updateAttribute(String attribute,String value,String key){
-        Connection con = JDBCUtil.getConnection();
-        String sql = "UPDATE nguoidung " +
-                "SET "+attribute+" = ?"+
-                "WHERE cccd = ?;";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,value);
-            ps.setString(2,key);
-            ps.executeUpdate();
-            ps.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        JDBCUtil.disconnect(con);
-    }
+
 }

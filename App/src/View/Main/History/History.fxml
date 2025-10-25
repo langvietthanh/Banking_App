@@ -9,18 +9,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="600" prefWidth="800" stylesheets="@History.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.History.Controller_History">
-
-    <!-- Tiêu đề -->
-    <top>
-        <Label style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Lịch sử giao dịch" BorderPane.alignment="CENTER">
-            <padding>
-                <Insets bottom="10" left="10" right="10" top="10" />
-            </padding>
-        </Label>
-    </top>
 
     <!-- Thanh tìm kiếm và lọc -->
     <center>
@@ -30,15 +22,15 @@
             </padding>
 
             <HBox spacing="10">
-            <Button mnemonicParsing="false" text="X" />
+            <Button mnemonicParsing="false" onAction="#handleXoaDuLieuLoc" text="X" />
                 <TextField fx:id="txtSearch" promptText="Tìm kiếm giao dịch..." HBox.hgrow="ALWAYS" />
-                <ComboBox fx:id="ComboBox_LoaiGiaoDIch" prefWidth="150" promptText="Loại giao dịch" />
+                <ComboBox fx:id="ComboBox_LoaiGiaoDich" prefWidth="150" promptText="Loại giao dịch" />
                 <ComboBox fx:id="ComboBox_ThoiGian" prefWidth="150" promptText="Thời gian" />
                 <Button onAction="#handleLoc" text="Lọc" />
             </HBox>
 
             <!-- Bảng dữ liệu -->
-            <TableView fx:id="Table_LichSuGiaoDich" prefHeight="500">
+            <TableView fx:id="Table_LichSuGiaoDich" pickOnBounds="false" prefHeight="500.0" prefWidth="780.0">
                 <columns>
                     <TableColumn fx:id="Column_ThoiGianGiaoDich" prefWidth="149.0" text="Ngày" />
                     <TableColumn fx:id="Column_LoaiGiaoDich" prefWidth="110.0" text="Loại giao dịch" />
@@ -54,9 +46,21 @@
                     <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
                 <Button onAction="#handleTrangTruoc" text="&lt;&lt;" />
-                <Label fx:id="lblPage" text="Trang 1/1" />
+                <Label fx:id="Label_Page" text="Trang 1/1" />
                 <Button onAction="#handleTrangSau" text="&gt;&gt;" />
             </HBox>
         </VBox>
     </center>
+   <top>
+      <Pane prefHeight="55.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleBack" text="&lt;" />
+              <Label layoutX="304.0" style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Lịch sử giao dịch">
+                  <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                  </padding>
+              </Label>
+         </children>
+      </Pane>
+   </top>
 </BorderPane>

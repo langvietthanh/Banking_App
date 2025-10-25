@@ -1,20 +1,19 @@
 package Control.Main.Transaction;
 
 import Model.TaiKhoan;
-import View.Popup.ManegerScene;
-import View.Popup.alert;
+import Control.ManegerScene;
+import View.Popup.label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class Controller_KeyBoard {
-
     //Controller and Scene============================================================================================//
     private Controller_Transaction controller_Transaction;
-    private ManegerScene manegerMainScene;
     private ManegerScene manegerSubScene;
 
     //Attribute=======================================================================================================//
@@ -23,12 +22,13 @@ public class Controller_KeyBoard {
     //FXML============================================================================================================//
     @FXML
     private TextField textInput;
+    public Label Label_LoiSoDu;
     @FXML
     private void handleKeyPress(ActionEvent actionEvent) {
         Button btn = (Button) actionEvent.getSource();
         String key = btn.getText();
         String text = textInput.getText();
-
+        System.out.println("key: " + key);
         switch (key) {
             case "←":
                 if (!text.isEmpty()) {
@@ -36,11 +36,15 @@ public class Controller_KeyBoard {
                     chuanHoa();
                 }
                 break;
-            case "Enter":
+            case "ENTER":
                 if (!text.isEmpty()) {
                     int modeSoDu = taiKhoanNguon.kiemTraSoDu(getValueIsDouble());
+                    System.out.println("modeSoDu: " + modeSoDu);
                     if (modeSoDu == 0) {
                         flag = true;
+                        setController_Transaction();
+                        controller_Transaction.setSoTienGiaoDich(getValueIsDouble());
+                        System.out.println("Pass");
                         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                         stage.close();
                     }
@@ -55,6 +59,7 @@ public class Controller_KeyBoard {
                     chuanHoa();
                 }
                 break;
+
             default:
                 textInput.appendText(key);
                 chuanHoa();
@@ -96,7 +101,6 @@ public class Controller_KeyBoard {
         return textInput.getText();
     }
 
-
     public void clear() {
         textInput.clear();
     }
@@ -104,13 +108,15 @@ public class Controller_KeyBoard {
     private void xuatThongBaoSoDu(int modSoDu) {
         switch (modSoDu) {
             case 1:
-                alert.ERROR("Số dư không đủ","Số dư không đủ đê thực hiện giao dịch");
+//                alert.ERROR("Số dư không đủ","Số dư không đủ đê thực hiện giao dịch");
+                label.MESS(Label_LoiSoDu,"Số dư không đủ đê thực hiện giao dịch");
                 break;
             case 2:
-                alert.ERROR("Số tiền duy trì tài khoản","Vui lòng đảm bảo tài khoản còn đủ 50,000VND");
+//                alert.ERROR("Số tiền duy trì tài khoản","Vui lòng đảm bảo tài khoản còn đủ 50,000VND");
+                label.MESS(Label_LoiSoDu,"Vui lòng đảm bảo tài khoản còn đủ 50,000VND");
+                break;
         }
     }
-
     public boolean getFlag() {
         return flag;
     }
@@ -119,11 +125,11 @@ public class Controller_KeyBoard {
         this.taiKhoanNguon = taiKhoanNguon;
     }
 
-    public void setManegerMainScene(ManegerScene manegerMainScene) {
-        this.manegerMainScene = manegerMainScene;
-    }
-
     public void setManegerSubScene(ManegerScene manegerSubScene) {
         this.manegerSubScene = manegerSubScene;
+    }
+
+    public void setController_Transaction() {
+        this.controller_Transaction = manegerSubScene.getControllerOfLoader();
     }
 }

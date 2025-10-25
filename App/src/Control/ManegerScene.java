@@ -1,4 +1,4 @@
-package View.Popup;
+package Control;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -8,14 +8,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class ManegerScene {
     private Parent root;
-    private FXMLLoader loader;
+    private FXMLLoader currentLoader, backLoarder;
 
     public ManegerScene() {
-        this.loader = null;
+        this.currentLoader = null;
     }
 
     public void changeWithOldStage(ActionEvent actionEvent, String sceneTitle) throws IOException {
@@ -38,10 +37,11 @@ public class ManegerScene {
         stage.show();
     }
 
-    public void back_next(FXMLLoader loader) throws IOException {
+    public void back(ActionEvent actionEvent) throws IOException {
 //        loarder chắc chắn đã được load()
+        Parent root = backLoarder.getRoot();
         Scene scene = root.getScene();
-        Stage stage = (Stage)scene.getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
@@ -54,23 +54,28 @@ public class ManegerScene {
         this.root = root;
     }
 
-    public FXMLLoader getLoader() {
-        return loader;
+    public FXMLLoader getCurrentLoader() {
+        return currentLoader;
     }
 
-    public void setLoader(FXMLLoader loader) throws IOException {
-        this.loader = loader;
-        if(loader.getRoot() != null){
-            this.root = (Parent) loader.getRoot();
+    public void setCurrentLoader(FXMLLoader currentLoader) throws IOException {
+        this.currentLoader = currentLoader;
+        if(currentLoader.getRoot() != null){
+            this.root = (Parent) currentLoader.getRoot();
         }
         else{// Chỉ load một lần duy nhất
-            Parent root = loader.load();
+            Parent root = currentLoader.load();
             setRoot(root);
         }
+
+    }
+
+    public void setBackLoarder(FXMLLoader backLoarder) {
+        this.backLoarder = backLoarder;
     }
 
     public <T>  T getControllerOfLoader(){
-        return loader.getController();
+        return currentLoader.getController();
     }
 
 }

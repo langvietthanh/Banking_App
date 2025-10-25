@@ -3,9 +3,8 @@ package Control.Login;
 import DAO.NguoiDungDAO;
 import DAO.TaiKhoanDAO;
 import Model.NguoiDung;
-import Model.SpareKey;
 import Model.TaiKhoan;
-import View.Popup.ManegerScene;
+import Control.ManegerScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +45,7 @@ public class Controller_Register_Account {
         taiKhoanDAO.create(taiKhoan);
         nguoiDungDAO.create(nguoiDung);
 
-        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Success.fxml")));
+        manegerSubScene.setCurrentLoader(new FXMLLoader(getClass().getResource("/View/Login/Success.fxml")));
         manegerSubScene.changeWithOldStage(actionEvent,"Thành công");
     }
 

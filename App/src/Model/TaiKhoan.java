@@ -15,7 +15,6 @@ public class TaiKhoan {
     private String loaiTaiKhoan;
     private long soDu;
     private LocalDateTime ngayTao;
-    private NguoiDung nguoiDung;
 
     private Controller_Register_Account controllerRegisterAccount;
 
@@ -43,7 +42,7 @@ public class TaiKhoan {
 
     public int kiemTraSoDu(double soTienGiaoDich) {
         if (soDu < soTienGiaoDich) return 1;
-        else if(soTienGiaoDich < soDu && soDu - soTienGiaoDich < 50) return 2;
+        else if(soTienGiaoDich < soDu && soDu - soTienGiaoDich < 50000) return 2;
         return 0;
     }
     // ----- Getters & Setters -----
@@ -93,7 +92,7 @@ public class TaiKhoan {
         NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
         try {
             NguoiDung nguoiDung = nguoiDungDAO.findByAttribute("CCCD",getCccd());
-            return soTaiKhoan +" "+nguoiDung.getHoTen();
+            return "Tên tài khoản: "+nguoiDung.getHoTen()+ "\nSố tài khoản: " + soTaiKhoan ;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -153,7 +152,7 @@ public class TaiKhoan {
         controllerRegisterAccount.getErrorSoTaiKhoan().setVisible(false);
       return true;
     }
-    public boolean kiemTraSoTaiKhoan(String soTaiKhoan){
+    public boolean isSrc(String soTaiKhoan){
         return soTaiKhoan.equals(this.soTaiKhoan);
     }
 }

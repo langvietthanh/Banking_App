@@ -237,7 +237,7 @@ public class NguoiDung {
         return true;
     }
     //-----------------check Mat Khau------------
-    private boolean checkMK(String mk){
+    public boolean checkMK(String mk){
         //----------Độ dài 8-------------
         if (mk.length()<8){
             controllerRegister.getErrorMK().setText("Mật khẩu tối thiểu 8 kí tự!");
@@ -254,17 +254,17 @@ public class NguoiDung {
             controllerRegister.getErrorMK().setText("Mật khẩu phải có ít nhất 1 kí tự in hoa, 1 kí tự thường, 1 số, 1 kí tự đặc biệt!");
             controllerRegister.getErrorMK().setVisible(true);
             controllerRegister.getErrorMK2().setVisible(true);
-            return false;
+            return false;//1
         }
         //------------kiểm tra nhập lại mật khẩu có đúng không-------
         if(!mk.equals(controllerRegister.getTextField_mk2().getText())){
             controllerRegister.getErrorMK().setVisible(true);
             controllerRegister.getErrorMK2().setVisible(true);
-            return false;
+            return false;//2
         }
         controllerRegister.getErrorMK().setVisible(false);
         controllerRegister.getErrorMK2().setVisible(false);
-        return true;
+        return true;//0
     }
     //-----------------check email---------------
     private boolean checkEMAIL(String email){
@@ -349,4 +349,5 @@ public class NguoiDung {
         }
         return stringBuilder.toString().trim();
     }
+
 }

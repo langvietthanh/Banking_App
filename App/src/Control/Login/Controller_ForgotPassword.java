@@ -6,35 +6,38 @@ import Model.BaoMat;
 import Model.NguoiDung;
 import View.Popup.alert;
 import View.Popup.label;
-import View.Popup.ManegerScene;
+import Control.ManegerScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class Controller_ForgotPassword {
-    private static final NguoiDungDAO NDDAO = new NguoiDungDAO();
+    //DAO=============================================================================================================//
+    private static final NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
     public static OTPDAO OtpDAO = new OTPDAO();
-    public static NguoiDung nd;
-    public static String SDT;
-    private final ManegerScene manegerScene =  new ManegerScene();
 
+    //Attribute=======================================================================================================//
+    public static NguoiDung nguoiDung;
+    public static String SDT;
+
+    //Controller and scene============================================================================================//
+    private ManegerScene manegerMainScene;
+    private ManegerScene manegerSubScene = new ManegerScene();
+    private Controller_VerifyOTP  controller_VerifyOTP;
+
+    //FXML component==================================================================================================//
     public TextField TextField_SoDienThoai,TextField_OTP;
-    public Label Label_ExpireTime;
     public PasswordField PasswordField_NhapMatKhau;
     public PasswordField PasswordField_XacThucMatKhau;
     public Label Label_MatKhauLoi;
     public Label Label_MatKhauXacThucLoi;
 
+    //Event===========================================================================================================//
     public void handleGuiMaXacNhan(ActionEvent actionEvent) throws Exception {
         SDT = TextField_SoDienThoai.getText();
         if(NguoiDung.kiemTraDauVaoSDT(SDT)){
@@ -48,59 +51,39 @@ public class Controller_ForgotPassword {
             LocalDateTime expiresAt = BaoMat.nowPlusMinutes(5);
 
             OtpDAO.saveOtp(SDT,otp_hash,expiresAt);
-            manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/VerifyOTPPassword.fxml")));
-            manegerScene.changeWithOldStage(actionEvent,"Xác thực OTP");
+            nguoiDung = nguoiDungDAO.findByAttribute("SDT", SDT);
+            manegerSubScene.setCurrentLoader(new FXMLLoader(getClass().getResource("/View/Login/VerifyOTPPassword.fxml")));
+            truyenDuLieuVerifyOTP();
+            manegerSubScene.changeWithOldStage(actionEvent,"Xác thực OTP");
 
         }
         TextField_SoDienThoai.setText("");
     }
 
-    public void handleXacNhanOTP(ActionEvent actionEvent) throws Exception {
-        String OTP_NguoiDung = TextField_OTP.getText();
-        String HashedOTP_NguoiDung = BaoMat.sha256(OTP_NguoiDung);
-
-        if(OtpDAO.verifyOtp(SDT,HashedOTP_NguoiDung)) {
-            manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/ResetPassword.fxml")));
-            manegerScene.changeWithOldStage(actionEvent, "Cấp lại mật khẩu");
-        }
-        else alert.ERROR("Mã OTP lỗi!","Mã OTP không chính xác! \n Yêu cầu nhập lại");
-    }
-
-    public void handleCapNhatMatKhau(ActionEvent actionEvent) throws Exception {
-
-        String matKhau =  PasswordField_NhapMatKhau.getText();
-        String matKhauXacThuc = PasswordField_XacThucMatKhau.getText();
-
-        int mode = NguoiDung.kiemTraMatKhau(matKhau,matKhauXacThuc);
-
-        if(mode != 0) xuatThongTinLoi(mode);
-
-        else{
-            label.setVisible(Label_MatKhauLoi,false);
-            label.setVisible(Label_MatKhauXacThucLoi,false);
-            nd = NDDAO.findByAttribute("SDT",SDT);
-            nd.setPassword(matKhau);
-            if(NDDAO.update(nd)) {
-                alert.INFORMATION("Thành công!", "Mật khẩu đã được thiết lập lại");
-                manegerScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Login.fxml")));
-                manegerScene.changeWithOldStage(actionEvent,"");
-            }
-        }
-    }
-
-    public void xuatThongTinLoi (int mode){
-        if(mode == 1) label.MESS(Label_MatKhauLoi,"Mật khẩu tối thiểu 8 kí tự!");
-        else if(mode == 2) label.MESS(Label_MatKhauLoi,"Mật khẩu phải có ít nhất 1 kí tự in hoa, 1 kí tự thường, 1 số, 1 kí tự đặc biệt!");
-        else if(mode == 3) label.MESS(Label_MatKhauXacThucLoi,"Mật khẩu xác thực không khớp!");
-    }
-    // Quay lại màn Login
     public void handleBack(ActionEvent actionEvent) throws IOException {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/Login/Login.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Đăng nhập");
-            stage.show();
-        }
+        manegerSubScene.changeWithOldStage(actionEvent,"Login");
+    }
 
+    //Truyen du lieu==================================================================================================//
+    private void truyenDuLieuVerifyOTP() {
+        setController_VerifyOTP();
+        controller_VerifyOTP.setSDT(SDT);
+        manegerSubScene.setBackLoarder(manegerMainScene.getCurrentLoader());
+        controller_VerifyOTP.setManegerMainScene(manegerSubScene);
+        controller_VerifyOTP.setNguoiDung(nguoiDung);
+    }
+
+    //Set attribute===================================================================================================//
+    public void setManegerMainScene(ManegerScene manegerMainScene) {
+        this.manegerMainScene = manegerMainScene;
+    }
+
+    public void setManegerSubScene(ManegerScene manegerSubScene) {
+        this.manegerSubScene = manegerSubScene;
+    }
+
+    //Set controller==================================================================================================//
+    public void setController_VerifyOTP() {
+        this.controller_VerifyOTP = manegerSubScene.getControllerOfLoader();
+    }
 }

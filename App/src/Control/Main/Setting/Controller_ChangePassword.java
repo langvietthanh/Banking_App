@@ -2,97 +2,93 @@ package Control.Main.Setting;
 
 import DAO.NguoiDungDAO;
 import DAO.TaiKhoanDAO;
-import Model.BaoMat;
-import Model.SpareKey;
+import Model.*;
 import View.Popup.alert;
-
+import Control.ManegerScene;
+import View.Popup.label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
+
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class Controller_ChangePassword {
+    //DAO=============================================================================================================//
+    private final NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+
+    //Controller and scene============================================================================================//
+    private ManegerScene manegerMainScene;
+
+    //FXML component==================================================================================================//
     @FXML private PasswordField  txtPIN;
-    @FXML private TextField txtNewPassword,txtNewPassword2;
-    @FXML private Label errorMK,errorPIN;
-    private SpareKey spareKey;
-    private final NguoiDungDAO ndd = new NguoiDungDAO();
-    private final TaiKhoanDAO tkd = new TaiKhoanDAO();
-    public void handleChangePassword(ActionEvent actionEvent){
-        try {
-            String newPass = txtNewPassword.getText();
-            String pin = txtPIN.getText();
-            if (!checknewMK(newPass)) return;
-            if (!checkPIN(pin)) return;
-            ndd.updateAttribute("Password", BaoMat.hashPassword(newPass), spareKey.getCccd());
-            alert.INFORMATION("Thông báo", "Cập nhật mật khẩu thành công");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    public void handleBack(ActionEvent actionEvent ){
-        try {
+    @FXML private TextField txtNewPassword;
+    @FXML private Label errorPIN;
+    public TextField txtNewPassword2;
+    public Label errorMK;
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Main/Setting/Setting.fxml"));
-            Parent root = loader.load();
+    //Attribute=======================================================================================================//
+    private NguoiDung nguoiDung;
+    private TaiKhoan taiKhoan;
 
-            // Truyền lại thông tin người dùng cho trang trước (nếu cần)
-            Controller_Setting controllerSetting = loader.getController();
-            controllerSetting.setSpareKey(spareKey);
+    //Event===========================================================================================================//
+    public void handleChangePassword(ActionEvent actionEvent) throws SQLException {
+        String pin = txtPIN.getText();
+        Password newPass = new Password(txtNewPassword.getText());
 
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Banking App");
-            stage.show();
-        }catch (Exception e){
-            e.printStackTrace();
+        if (!checkNewPass(newPass)) return;
+        if (!checkPIN(pin)) return;
+        newPass.hashPass();
+        nguoiDung.setPassword(newPass.getHashedPass());
+        nguoiDungDAO.update(nguoiDung);
+        alert.INFORMATION("Thông báo", "Cập nhật mật khẩu thành công");
+
+    }
+
+    public void handleBack(ActionEvent actionEvent ) throws IOException {
+        manegerMainScene.back(actionEvent);
+    }
+
+    //Set attribute===================================================================================================//
+    public void setNguoiDung(NguoiDung nguoiDung) {
+        this.nguoiDung = nguoiDung;
+    }
+
+    public void setTaiKhoan(TaiKhoan taiKhoan) {this.taiKhoan = taiKhoan;}
+
+    private boolean checkNewPass(Password newPass) {
+        String passChecker = txtNewPassword2.getText();
+        switch (newPass.checkPass(passChecker)){
+            case 1:
+                label.MESS(errorMK,"Mật khẩu tối thiểu 8 kí tự!");
+                return false;
+            case 2:
+                label.MESS(errorMK,"Mật khẩu phải có ít nhất 1 kí tự in hoa, 1 kí tự thường, 1 số, 1 kí tự đặc biệt!");
+                return false;
+            case 3:
+                label.MESS(errorMK,"Mật khẩu không khớp với mật khẩu xác nhận");
+                return false;
+            default:
+                return true;
         }
     }
-    public void setSpareKey(SpareKey spareKey) {
-        this.spareKey = spareKey;
-    }
-    private boolean checknewMK(String mk){
-        //----------Độ dài 8-------------
-        if (mk.length()<8){
-            errorMK.setText("Mật khẩu tối thiểu 8 kí tự!");
-            errorMK.setVisible(true);
-            return false;
-        }
-        //-----------kiểm tra định dạng mật khẩu --------
-        boolean hasUpper = mk.matches(".*[A-Z].*");
-        boolean hasLower = mk.matches(".*[a-z].*");
-        boolean hasDigit = mk.matches(".*[0-9].*");
-        boolean hasSpecial = mk.matches(".*[@!%&*$#].*");
-        if (!hasUpper || !hasLower || !hasDigit || !hasSpecial){
-            errorMK.setText("Mật khẩu phải có ít nhất 1 kí tự in hoa, 1 kí tự thường, 1 số, 1 kí tự đặc biệt!");
-            errorMK.setVisible(true);
-            return false;
-        }
-        //------------kiểm tra nhập lại mật khẩu có đúng không-------
-        if(!mk.equals(txtNewPassword2.getText())){
-            errorMK.setText("Mật khẩu không trùng khớp!");
-            errorMK.setVisible(true);
-            return false;
-        }
-        errorMK.setVisible(false);
-        return true;
-    }
+
     private boolean checkPIN(String pin){
         if (pin.isEmpty()) {
             errorPIN.setText("Vui lòng nhập mã PIN");
             errorPIN.setVisible(true);
             return false;
         }
-        if (!BaoMat.checkPassword(pin,tkd.findAttributeByCCCD("maPIN",spareKey.getCccd()))){
+        if (!BaoMat.checkPassword(pin, taiKhoan.getMaPIN())){
             errorPIN.setText("Mã PIN không hợp lệ!");
             errorPIN.setVisible(true);
             return false;
         }
         return true;
+    }
+
+    public void setManegerMainScene(ManegerScene manegerMainScene) {
+        this.manegerMainScene = manegerMainScene;
     }
 }

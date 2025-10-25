@@ -108,3 +108,7 @@
     -fx-font-size: 14px;
     -fx-text-fill: #1b4332;
 }
+
+.table-view .cell {
+    -fx-text-fill: black;
+}

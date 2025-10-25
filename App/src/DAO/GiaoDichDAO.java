@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class GiaoDichDAO implements interfaceDAO<GiaoDich> {
 
@@ -65,7 +64,7 @@ public class GiaoDichDAO implements interfaceDAO<GiaoDich> {
             String soTaiKhoanDich = rs.getString(2);
             TaiKhoan taiKhoanDich = taiKhoanDAO.findByAttribute("soTaiKhoan",soTaiKhoanDich);
 
-            LoaiGiaoDich loaiGiaoDich = LoaiGiaoDich.xacDinhLoaiGiaoDich(taiKhoanDich.kiemTraSoTaiKhoan(soTaiKhoan));
+            LoaiGiaoDich loaiGiaoDich = LoaiGiaoDich.xacDinhLoaiGiaoDich(taiKhoanDich.isSrc(soTaiKhoan));
 
             double soTien = rs.getDouble(3);
 

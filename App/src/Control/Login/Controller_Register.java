@@ -2,12 +2,11 @@ package Control.Login;
 
 import Model.NguoiDung;
 import Model.SpareKey;
-import View.Popup.ManegerScene;
+import Control.ManegerScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
-import DAO.NguoiDungDAO;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -16,8 +15,6 @@ import java.time.LocalDateTime;
 
 
 public class Controller_Register {
-
-
     //Attribute===============================================================================//
     private final NguoiDung nd = new NguoiDung();
     private final SpareKey spareKey = new SpareKey();
@@ -72,7 +69,7 @@ public class Controller_Register {
         nd.setNgayDangKi(LocalDateTime.now());
         spareKey.setCccd(cccd);
 
-        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/RegisterBankAccount.fxml")));
+        manegerSubScene.setCurrentLoader(new FXMLLoader(getClass().getResource("/View/Login/RegisterBankAccount.fxml")));
         truyenDuLieu_Register_Account();
         manegerSubScene.changeWithOldStage(actionEvent,"Đăng kí tài khoản");
     }
@@ -86,8 +83,8 @@ public class Controller_Register {
 
     // Quay lại màn Login
     public void handleBack(ActionEvent actionEvent) throws IOException {
-            manegerSubScene.changeWithOldStage(actionEvent,"Login");
-        }
+        manegerSubScene.changeWithOldStage(actionEvent,"Login");
+    }
 
     public TextField getTextField_mk2() {
         return textField_mk2;

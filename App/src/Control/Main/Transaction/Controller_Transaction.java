@@ -3,10 +3,12 @@ package Control.Main.Transaction;
 import DAO.NguoiDungDAO;
 import DAO.TaiKhoanDAO;
 import Model.GiaoDich;
+import Model.GiaoDichTaiKhoanNguon;
 import Model.NguoiDung;
 import Model.TaiKhoan;
 import View.Popup.label;
-import View.Popup.ManegerScene;
+import Control.ManegerScene;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,12 +30,13 @@ public class Controller_Transaction {
     private TaiKhoan taiKhoanDich;
     private double soTienGiaoDich;
     private String soDienThoai;
+    private ObservableList<GiaoDichTaiKhoanNguon> tatCaGiaoDich;
 
     //Controller and Scene============================================================================================//
     private Controller_KeyBoard  controller_KeyBoard;
     private Controller_VerifyPIN controller_VerifyPIN;
     private ManegerScene manegerMainScene;
-    private ManegerScene manegerSubScene;
+    private ManegerScene manegerSubScene = new ManegerScene();
 
     //FXML Component==================================================================================================//
     public Button Button_XacNhan;
@@ -61,7 +64,7 @@ public class Controller_Transaction {
     }
 
     public void handleNhapSoTien() throws IOException {
-        manegerSubScene.setLoader(new FXMLLoader(Controller_Transaction.class.getResource("/View/Main/Transaction/KeyBoard.fxml")));
+        manegerSubScene.setCurrentLoader(new FXMLLoader(Controller_Transaction.class.getResource("/View/Main/Transaction/KeyBoard.fxml")));
         nhapSoTien();
         if (controller_KeyBoard.getFlag()){
             label.MESS(Label_SoTien, controller_KeyBoard.getValueIsString());
@@ -71,13 +74,13 @@ public class Controller_Transaction {
     }
 
     public void handleXacNhan(ActionEvent actionEvent) throws IOException {
-        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/Transaction/VerifyPIN.fxml")));
+        manegerSubScene.setCurrentLoader(new FXMLLoader(getClass().getResource("/View/Main/Transaction/VerifyPIN.fxml")));
         truyenDuLieuVerifyPIN();
         manegerSubScene.changeWithOldStage(actionEvent, "Xác thực mã PIN");
     }
 
     public void handleBack(ActionEvent actionEvent) throws IOException {
-        manegerSubScene.changeWithOldStage(actionEvent, "Dash Board");
+        manegerMainScene.back(actionEvent);
     }
 
     //Phương thức riêng của Controller hiện tại=======================================================================//
@@ -89,7 +92,6 @@ public class Controller_Transaction {
         stage.setScene(scene);
         stage.setTitle("Key Board");
         stage.showAndWait();
-        soTienGiaoDich = controller_KeyBoard.getValueIsDouble();
     }
 
     private void xuatThongBaoLoiTKDich(int modeTaiKhoanDich) {
@@ -107,18 +109,18 @@ public class Controller_Transaction {
 
     private void truyenDuLieuVerifyPIN() {
         setController_VerifyPIN();
+        manegerSubScene.setBackLoarder(manegerMainScene.getCurrentLoader());
+        controller_VerifyPIN.setManegerMainScene(manegerSubScene);
         controller_VerifyPIN.setSoDienThoai(soDienThoai);
         controller_VerifyPIN.setTaiKhoanNguon(taiKhoanNguon);
         controller_VerifyPIN.setTaiKhoanDich(taiKhoanDich);
-        controller_VerifyPIN.setManegerMainScene(manegerSubScene);
-        controller_VerifyPIN.setManegerSubScene(manegerMainScene);
+        controller_VerifyPIN.setTatCaGiaoDich(tatCaGiaoDich);
         controller_VerifyPIN.setSoTienGiaoDich(soTienGiaoDich);
     }
 
     private void truyenDuLieuKeyBoard() {
         setController_KeyBoard();
         controller_KeyBoard.setTaiKhoanNguon(taiKhoanNguon);
-        controller_KeyBoard.setManegerMainScene(manegerSubScene);
         controller_KeyBoard.setManegerSubScene(manegerMainScene);
     }
 
@@ -134,12 +136,16 @@ public class Controller_Transaction {
         soDienThoai = sdt;
     }
 
+    public void setSoTienGiaoDich(double soTienGiaoDich) {
+        this.soTienGiaoDich = soTienGiaoDich;
+    }
+
     public void setManegerMainScene(ManegerScene manegerMainScene) {
         this.manegerMainScene = manegerMainScene;
     }
 
-    public void setManegerSubScene(ManegerScene manegerSubScene) {
-        this.manegerSubScene = manegerSubScene;
+    public void setTatCaGiaoDich(ObservableList<GiaoDichTaiKhoanNguon> tatCaGiaoDich) {
+        this.tatCaGiaoDich = tatCaGiaoDich;
     }
 
     // Setter controller==============================================================================================//

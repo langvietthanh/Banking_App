@@ -1,5 +1,5 @@
 import Control.Login.Controller_Login;
-import View.Popup.ManegerScene;
+import Control.ManegerScene;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +22,7 @@ public class Main extends Application {
     }
 
     public void truyenDuLieuLogin(FXMLLoader loader,ManegerScene manegerScene) throws IOException {
-        manegerScene.setLoader(loader);
+        manegerScene.setCurrentLoader(loader);
         Controller_Login controller = manegerScene.getControllerOfLoader();
         controller.setManegerMainScene(manegerScene);
     }

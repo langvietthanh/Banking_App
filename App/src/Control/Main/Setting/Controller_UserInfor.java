@@ -1,20 +1,22 @@
 package Control.Main.Setting;
 
-import DAO.NguoiDungDAO;
 import Model.NguoiDung;
-import Model.SpareKey;
-import View.Popup.ManegerScene;
+import Control.ManegerScene;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class Controller_UserInfor  {
-    private  ManegerScene manegerMainScene,manegerSubScene = new ManegerScene();
+    //Controller and scene===============================================================================//
+    private  ManegerScene manegerMainScene;
 
-    private Controller_Setting  controller_Setting;
+    //Attribute===============================================================================//
+    private NguoiDung nguoiDung;
 
+    //FXML component===============================================================================//
     @FXML private Label lblCCCD;
     @FXML private Label lblHoTen;
     @FXML private Label lblNgaySinh;
@@ -22,67 +24,31 @@ public class Controller_UserInfor  {
     @FXML private Label lblSDT;
     @FXML private Label lblEmail;
     @FXML private Label lblHanCCCD;
-    private SpareKey spareKey;
-    private NguoiDungDAO ndd = new NguoiDungDAO();
 
     //Event===========================================================================================================//
-
     public void handleBack(ActionEvent actionEvent) throws IOException {
-        //không cần setloader vì manegerScene đang quản lí Controller của Setting
-        truyenDuLieuSetting();
-        manegerSubScene.changeWithOldStage(actionEvent,"Setting");
+        manegerMainScene.back(actionEvent);
     }
 
-    //Truyền data cho controller tiếp theo============================================================================//
-
-    private void truyenDuLieuSetting() {
-        setController_Setting();
-        controller_Setting.setSpareKey(spareKey);
+    //Method==========================================================================================================//
+    private void loadInfor() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        lblCCCD.setText(nguoiDung.getCccd());
+        lblHoTen.setText(nguoiDung.getHoTen());
+        lblEmail.setText(nguoiDung.getEmail());
+        lblNgaySinh.setText(nguoiDung.getNgaySinh().format(dtf));
+        lblDiaChi.setText(nguoiDung.getDiaChi());
+        lblSDT.setText(nguoiDung.getSoDienThoai());
+        lblHanCCCD.setText(nguoiDung.getHanCCCD().format(dtf));
     }
 
-    //Phương thức riêng của Controller hiện tại=======================================================================//
-
-    private void loadUserInfo()  {
-        try {
-            NguoiDung nguoiDung = ndd.findByAttribute("CCCD", spareKey.getCccd());
-            lblCCCD.setText(nguoiDung.getCccd());
-            lblHoTen.setText(nguoiDung.getHoTen());
-            lblEmail.setText(nguoiDung.getEmail());
-            lblNgaySinh.setText(nguoiDung.getNgaySinh().toString());
-            lblDiaChi.setText(nguoiDung.getDiaChi());
-            lblSDT.setText(nguoiDung.getSoDienThoai());
-            lblHanCCCD.setText(nguoiDung.getHanCCCD().toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    //Set attribute===================================================================================================//
+    public void setNguoiDung(NguoiDung nguoiDung) {
+        this.nguoiDung = nguoiDung;
+        loadInfor();
     }
 
-    //Set Controller==================================================================================================//
-
-    public void setController_Setting() {
-        this.controller_Setting = manegerSubScene.getControllerOfLoader();
+    public void setManegerMainScene(ManegerScene manegerMainScene) {
+        this.manegerMainScene = manegerMainScene;
     }
-
-    public void setManegerMainScene(ManegerScene manegerScene) {
-        this.manegerMainScene = manegerScene;
-    }
-
-    public void setManegerSubScene(ManegerScene manegerSubScene) {
-        this.manegerSubScene = manegerSubScene;
-    }
-
-    //Set Attribute - Data lấy từ Controller trước đấy (Setting)==========================================================//
-
-    public void setSpareKey(SpareKey spareKey) {
-        this.spareKey = spareKey;
-        if (spareKey != null) {
-            try {
-                loadUserInfo();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
 }

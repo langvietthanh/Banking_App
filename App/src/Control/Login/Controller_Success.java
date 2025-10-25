@@ -1,6 +1,5 @@
 package Control.Login;
 
-import View.Popup.ManegerScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

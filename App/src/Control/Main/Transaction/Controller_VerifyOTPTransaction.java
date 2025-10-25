@@ -3,13 +3,12 @@ package Control.Main.Transaction;
 import Control.Main.Controller_DashBoard;
 import DAO.GiaoDichDAO;
 import DAO.OTPDAO;
-import Model.BaoMat;
-import Model.GiaoDich;
-import Model.TaiKhoan;
-import View.Popup.ManegerScene;
+import Model.*;
+import Control.ManegerScene;
 import View.Popup.alert;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -27,9 +26,9 @@ public class Controller_VerifyOTPTransaction {
     private final GiaoDichDAO giaoDichDAO = new GiaoDichDAO();
 
     //Controller and Scene=======================================================================================================//
-    private ManegerScene manegerSubScene;
+    private ManegerScene manegerMainScene;
+    private ManegerScene manegerSubScene = new ManegerScene();
     private Controller_DashBoard controller_DashBoard;
-    private Controller_VerifyPIN controller_VerifyPIN;
 
     //Attribute=======================================================================================================//
     private TaiKhoan taiKhoanNguon;
@@ -37,15 +36,16 @@ public class Controller_VerifyOTPTransaction {
     private double soTienGiaoDich;
     private String soDienThoai;
     private Timeline timeline;
-    private LocalDateTime endTime; // thời điểm OTP hết hiệu lực
+    private LocalDateTime endTime;
+    private ObservableList<GiaoDichTaiKhoanNguon> tatCaGiaoDich;
 
-    //FXML Component=======================================================================================================//
+    //FXML Component==================================================================================================//
     public TextField TextField_OTP;
     public Label Label_ThoiGianHieuLuc;
     public Label Label_Error;
     public Button Button_GuiLaiOTP;
 
-    //HandleButton=======================================================================================================//
+    //Event===========================================================================================================//
     public void handleXacNhanOTP(ActionEvent actionEvent) throws Exception {
         if(LocalDateTime.now().isAfter(endTime)) {
             Label_Error.setText("Mã OTP đã hết hiệu lực");
@@ -55,6 +55,7 @@ public class Controller_VerifyOTPTransaction {
         String hashed_OTP = BaoMat.sha256(OTP);
 
         if(OtpDAO.verifyOtp(soDienThoai,hashed_OTP)) thucHienGiaoDich(actionEvent);
+
         else Label_Error.setText("Mã OTP không chính xác");
 
     }
@@ -62,15 +63,17 @@ public class Controller_VerifyOTPTransaction {
     public void handleGuiLaiOTP(ActionEvent actionEvent) throws Exception {
         manegerSubScene.changeWithOldStage(actionEvent,"Xác thực mã PIN");
     }
-    //Phương thức riêng của Controller hiện tại=======================================================================//
+
+    //Method==========================================================================================================//
     private void thucHienGiaoDich(ActionEvent actionEvent) throws SQLException, IOException {
         GiaoDich giaoDich = new GiaoDich(taiKhoanNguon.getSoTaiKhoan(), taiKhoanDich.getSoTaiKhoan(), soTienGiaoDich, "");
         giaoDich.congTienTaiKhoanDich();
         giaoDich.truTienTaiKhoanNguon(taiKhoanNguon);
         giaoDichDAO.create(giaoDich);
-
+        GiaoDichTaiKhoanNguon giaoDichTaiKhoanNguon = new GiaoDichTaiKhoanNguon(giaoDich.getThoiGianGiaoDich(),LoaiGiaoDich.ChuyenTien,taiKhoanDich,soTienGiaoDich,"");
+        tatCaGiaoDich.add(giaoDichTaiKhoanNguon);
         if(alert.INFORMATION("Giao dịch", "Giao dịch thành công") != null){
-            manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/DashBoard.fxml")));
+            manegerSubScene.setCurrentLoader(new FXMLLoader(getClass().getResource("/View/Main/DashBoard.fxml")));
             truyenDuLieuDashBoard();
             manegerSubScene.changeWithOldStage(actionEvent,"DashBoard");
         }
@@ -104,6 +107,7 @@ public class Controller_VerifyOTPTransaction {
         setController_DashBoard();
         controller_DashBoard.setTaiKhoan(taiKhoanNguon);
         controller_DashBoard.setSoDienThoai(soDienThoai);
+        controller_DashBoard.setTatCaGiaoDich(tatCaGiaoDich);
         controller_DashBoard.reload();
     }
 
@@ -122,6 +126,10 @@ public class Controller_VerifyOTPTransaction {
 
     public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
+    }
+
+    public void setTatCaGiaoDich(ObservableList<GiaoDichTaiKhoanNguon> tatCaGiaoDich) {
+        this.tatCaGiaoDich = tatCaGiaoDich;
     }
 
     public void setEndTime(LocalDateTime endTime) {

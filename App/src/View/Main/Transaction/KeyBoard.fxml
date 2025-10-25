@@ -56,5 +56,5 @@
     </GridPane>
 
     <!-- Nút Enter -->
-    <Button maxWidth="Infinity" onAction="#handleKeyPress" prefHeight="60" prefWidth="260" styleClass="enter-button" text="ENTER" textOverrun="CLIP" wrapText="false" />
+    <Button maxWidth="Infinity" onAction="#handleKeyPress" prefHeight="60" prefWidth="260" styleClass="enter-button" text="ENTER" textOverrun="CLIP"/>
 </VBox>

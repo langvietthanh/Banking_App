@@ -8,7 +8,7 @@ import DAO.NguoiDungDAO;
 import DAO.TaiKhoanDAO;
 import Model.*;
 import View.Popup.alert;
-import View.Popup.ManegerScene;
+import Control.ManegerScene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,13 +22,13 @@ import java.sql.SQLException;
 
 
 public class Controller_Login {
-    //DAO===============================================================================//
+    //DAO=============================================================================================================//
     public static NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
     public static TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
     public static LockTimeDAO lockTimeDAO = new LockTimeDAO();
     public static GiaoDichDAO giaoDichDAO = new GiaoDichDAO();
 
-    //Attribute===============================================================================//
+    //Attribute=======================================================================================================//
     private static ObservableList<GiaoDichTaiKhoanNguon> tatCaGiaoDich;
     private static int LuotDangNhapSai = 0;
     private String SoDienThoai;
@@ -36,19 +36,18 @@ public class Controller_Login {
     private NguoiDung nguoiDung;
     public LockTime lockTime;
 
-    //Controller and scene===============================================================================//
-    private Controller_DashBoard controller_DashBoard;
-    private Controller_Register controller_Register;
+    //Controller and scene============================================================================================//
     private ManegerScene manegerMainScene;
     private ManegerScene manegerSubScene = new ManegerScene();
+    private Controller_DashBoard controller_DashBoard;
+    private Controller_Register controller_Register;
+    private Controller_ForgotPassword  controller_ForgotPassword;
 
-    //FXML component===============================================================================//
-    @FXML
-    private TextField TextField_SoDienThoai;
-    @FXML
-    private PasswordField TextField_Password;
+    //FXML component==================================================================================================//
+    @FXML private TextField TextField_SoDienThoai;
+    @FXML private PasswordField TextField_Password;
 
-    //Event===============================================================================//
+    //Event===========================================================================================================//
     public void handleDangNhap(ActionEvent actionEvent ) throws IOException, SQLException {
         String sdt = TextField_SoDienThoai.getText();
         String password = TextField_Password.getText();
@@ -60,7 +59,7 @@ public class Controller_Login {
         if(nguoiDungBiKhoa(sdt)) return;
 
         else if (BaoMat.checkPassword(password , nguoiDung.getPassword()) ) {
-            manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Main/DashBoard.fxml")));
+            manegerSubScene.setCurrentLoader(new FXMLLoader(getClass().getResource("/View/Main/DashBoard.fxml")));
             truyenDuLieuDashBoard();
             manegerSubScene.changeWithOldStage(actionEvent,"Màn hình chính");
         }
@@ -76,18 +75,19 @@ public class Controller_Login {
     }
 
     public void handleDangKi(ActionEvent actionEvent) throws IOException  {
-            manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/Register.fxml")));
+            manegerSubScene.setCurrentLoader(new FXMLLoader(getClass().getResource("/View/Login/Register.fxml")));
             truyenDuLieuRegister();
             manegerSubScene.changeWithOldStage(actionEvent,"Đăng kí");
     }
 
     public void handleQuenMatKhau(ActionEvent actionEvent) throws IOException {
-        manegerSubScene.setLoader(new FXMLLoader(getClass().getResource("/View/Login/ForgotPassword.fxml")));
+        manegerSubScene.setCurrentLoader(new FXMLLoader(getClass().getResource("/View/Login/ForgotPassword.fxml")));
+        truyenDuLieuForgotPassword();
         manegerSubScene.changeWithOldStage(actionEvent, "Quên mật khẩu");
     }
 
-    //Method===============================================================================//
 
+    //Method==========================================================================================================//
     private void vuotGioiHanDangNhap(String sdt) throws SQLException {
         if (LuotDangNhapSai == 3) {
             LuotDangNhapSai = 0;
@@ -105,21 +105,9 @@ public class Controller_Login {
         return false;
     }
 
-    public void setTaiKhoan(TaiKhoan taiKhoan) {
-        this.taiKhoan = taiKhoan ;
-    }
 
-    public void setSoDienThoai(String soDienThoai) {
-        SoDienThoai = soDienThoai;
-    }
-
-    public void setNguoiDung(NguoiDung nd) {
-        this.nguoiDung = nd;
-    }
-
-    //Lấy tài khoản lúc đăng nhập dùng cho DashBoard và những chức năng con trong DashBoard===============
-
-    private void truyenDuLieuDashBoard() throws SQLException, IOException {
+    //Truyen du lieu==================================================================================================//
+    private void truyenDuLieuDashBoard() throws SQLException {
         setTaiKhoan(taiKhoanDAO.findByAttribute("CCCD",nguoiDung.getCccd()));
         setSoDienThoai(TextField_SoDienThoai.getText());
         setController_DashBoard();
@@ -130,6 +118,7 @@ public class Controller_Login {
         controller_DashBoard.setSoDienThoai(SoDienThoai);
         controller_DashBoard.setManegerMainScene(manegerSubScene);
         controller_DashBoard.setTatCaGiaoDich(tatCaGiaoDich);
+        controller_DashBoard.setNguoiDung(nguoiDung);
         controller_DashBoard.reload();
     }
 
@@ -139,7 +128,14 @@ public class Controller_Login {
         controller_Register.setManegerSubScene(manegerMainScene);
     }
 
-    public void setController_DashBoard() throws IOException {
+    private void truyenDuLieuForgotPassword() {
+        setController_ForgotPassword();
+        controller_ForgotPassword.setManegerMainScene(manegerSubScene);
+        controller_ForgotPassword.setManegerSubScene(manegerMainScene);
+    }
+
+    //Set controller==================================================================================================//
+    public void setController_DashBoard(){
         this.controller_DashBoard = manegerSubScene.getControllerOfLoader();
     }
 
@@ -147,7 +143,24 @@ public class Controller_Login {
         this.controller_Register = manegerSubScene.getControllerOfLoader();
     }
 
+    public void setController_ForgotPassword() {
+        this.controller_ForgotPassword = manegerSubScene.getControllerOfLoader();
+    }
+
+    //Set attribute===================================================================================================//
     public void setManegerMainScene(ManegerScene manegerMainScene) {
         this.manegerMainScene = manegerMainScene;
+    }
+
+    public void setTaiKhoan(TaiKhoan taiKhoan) {
+        this.taiKhoan = taiKhoan ;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        SoDienThoai = soDienThoai;
+    }
+
+    public void setNguoiDung(NguoiDung nd) {
+        this.nguoiDung = nd;
     }
 }

@@ -10,27 +10,26 @@
 
 <AnchorPane prefHeight="330.0" prefWidth="520.0" styleClass="otp-pane" stylesheets="@VerifyOTPTransaction.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.Main.Transaction.Controller_VerifyOTPTransaction">
 
-    <children>
-        <!-- Tiêu đề OTP -->
-        <Text layoutX="119.0" layoutY="80.0" styleClass="otp-title" text="NHẬP MÃ OTP">
-         <font>
-            <Font name="Constantia" size="42.0" />
-         </font></Text>
-      <Label fx:id="Label_Error" layoutX="200.0" layoutY="176.0" prefHeight="15.0" prefWidth="152.0" />
-      <Label layoutX="194.0" layoutY="86.0" text="Thời gian OTP hết hạn:" />
-      <Button fx:id="Button_GuiLaiOTP" layoutX="397.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleGuiLaiOTP" text="Gửi lại OTP" />
+    <stylesheets>
+        <URL value="@../../Login/ResetPassword.css" />
+        <URL value="@../../Login/background_image.css" />
+    </stylesheets>
+    <!-- Tiêu đề OTP -->
+    <Text layoutX="127.0" layoutY="71.0" styleClass="otp-title" text="NHẬP MÃ OTP">
+        <font>
+        <Font name="Constantia" size="42.0" />
+        </font>
+    </Text>
+    <Label fx:id="Label_Error" layoutX="151.0" layoutY="175.0" prefHeight="15.0" prefWidth="220.0" textAlignment="JUSTIFY" />
 
-        <!-- Ô nhập OTP -->
-        <TextField fx:id="TextField_OTP" layoutX="145.0" layoutY="131.0" prefHeight="48.0" prefWidth="230.0" promptText="Nhập mã OTP" styleClass="otp-input" />
+    <!-- Label lỗi hoặc thông báo -->
+    <Label fx:id="Label_ThoiGianHieuLuc" layoutX="244.0" layoutY="105.0" prefHeight="15.0" prefWidth="32.0" styleClass="otp-error" />
+    <Label layoutX="194.0" layoutY="81.0" text="Thời gian OTP hết hạn:" />
 
-        <!-- Label lỗi hoặc thông báo -->
-        <Label fx:id="Label_OTPHetHan" layoutX="180.0" layoutY="170.0" styleClass="otp-error" text="" />
+    <!-- Ô nhập OTP -->
+    <TextField fx:id="TextField_OTP" layoutX="145.0" layoutY="131.0" prefHeight="48.0" prefWidth="230.0" promptText="Nhập mã OTP" styleClass="otp-input" />
 
-        <!-- Nút xác nhận (giống Transaction) -->
-        <Button layoutX="218.0" layoutY="219.0" onAction="#handleXacNhanOTP" prefHeight="30.0" prefWidth="90.0" styleClass="main-button" text="Xác nhận" />
-    </children>
-   <stylesheets>
-      <URL value="@../../Login/ResetPassword.css" />
-      <URL value="@../../Login/background_image.css" />
-   </stylesheets>
+    <!-- Nút xác nhận (giống Transaction) -->
+    <Button layoutX="201.0" layoutY="200.0" onAction="#handleXacNhanOTP" prefHeight="36.0" prefWidth="121.0" styleClass="main-button" text="Xác nhận" />
+    <Button fx:id="Button_GuiLaiOTP" layoutX="399.0" layoutY="259.0" onAction="#handleGuiLaiOTP" prefHeight="36.0" prefWidth="121.0" styleClass="main-button" text="Gửi lại OTP" />
 </AnchorPane>
